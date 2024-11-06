@@ -30,7 +30,7 @@ export class ParedProductsData {
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       const count = eachCategory[2];
-      const promotion = eachCategory[3];
+      let promotion = eachCategory[3];
 
       if (promotion === 'null') {
         promotion = '';
