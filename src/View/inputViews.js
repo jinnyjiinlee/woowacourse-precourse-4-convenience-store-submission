@@ -39,11 +39,11 @@ export class Input {
     }
   }
 
-  async getIsFixedPricePurchaseInput() {
+  async getIsFixedPricePurchaseInput(productName, noPromotionProductAmount) {
     while (true) {
       try {
         this.isFixedPricePurchaseInput = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE
+          this.inputMessage.INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE(productName, noPromotionProductAmount)
         );
         // TODO: 유효성 검사 파일 추후 삽입
         return this.isFixedPricePurchaseInput;

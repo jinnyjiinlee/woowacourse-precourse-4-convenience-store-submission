@@ -1,10 +1,7 @@
-import {
-  PROMOTION_COUNT,
-  PROMOTION_PRODUCTS_NAME_LIST,
-} from '../Constant/productsCount.js';
+import { PROMOTION_PRODUCTS_NAME_LIST } from '../Constant/productsCount.js';
+import { comparePromotionCount } from '../Model/productAmountAndNotPromotion.js';
 import { Input } from '../View/inputViews.js';
 import { Output } from '../View/outputViews.js';
-import { getPromotionProductName } from './additionalPromotionApplication.js';
 import { extractProductNamesAndAmount } from './parsedProductNamesAndAmount.js';
 
 class MainController {
@@ -33,24 +30,25 @@ class MainController {
     this.productName = productNameAndAmountArr[0];
     this.productAmount = productNameAndAmountArr[1];
 
-    const additionalPromotionProductName = getPromotionProductName(
-      this.productName,
-      this.productAmount
-    );
+    this.promotionProductFinding = Object.keys(
+      PROMOTION_PRODUCTS_NAME_LIST
+    ).find((key) => PROMOTION_PRODUCTS_NAME_LIST[key] === this.productName);
 
-    // 프로모션 추가를 해야된다면, 추가 하시겠습니까? 메시지 받기
-    if (additionalPromotionProductName) {
-      await this.getIsAddPromotionProducts(this.productName);
-      const productCountKey = Object.keys(PROMOTION_PRODUCTS_NAME_LIST).find(
-        (key) => PROMOTION_PRODUCTS_NAME_LIST[key] === this.productName
-      );
+    if (this.promotionProductFinding) {
+      this.noPromotionDiscountCount =
+        new comparePromotionCount().compareProductAndPromotionCount(
+          this.productName,
+          this.productAmount
+        );
 
-      let productCount = PROMOTION_COUNT[productCountKey];
+      this.gapCount = this.noPromotionDiscountCount[1];
 
-      if (this.isAddPromotionProductsInput === 'Y') {
-        console.log(productCount);
-        productCount -= 1;
-        console.log(productCount);
+      if (this.noPromotionDiscountCount[0] === '증정') {
+        await this.getIsAddPromotionProducts();
+      }
+
+      if (this.noPromotionDiscountCount[0] === '적용안됨') {
+        await this.getIsFixedPricePurchaseInput();
       }
     }
   }
@@ -60,14 +58,17 @@ class MainController {
       await this.input.getProductNamesAndAmountInput();
   }
 
-  async getIsAddPromotionProducts(productName) {
+  async getIsAddPromotionProducts() {
     this.isAddPromotionProductsInput =
-      await this.input.getIsAddPromotionProductsInput(productName);
+      await this.input.getIsAddPromotionProductsInput(this.productName);
   }
 
   async getIsFixedPricePurchaseInput() {
     this.isFixedPricePurchaseInput =
-      await this.input.getIsFixedPricePurchaseInput();
+      await this.input.getIsFixedPricePurchaseInput(
+        this.productName,
+        this.gapCount
+      );
   }
 
   async getIsMembershipApplicationInput() {
