@@ -19,6 +19,11 @@ const INPUT_MESSAGE = {
   `멤버십 할인을 받으시겠습니까? (Y/N)` +
   '\n',
 
+  IS_ADDITIONAL_PURCHASE:
+  '\n' +
+  `감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)` +
+  '\n',
+
 
 };
 

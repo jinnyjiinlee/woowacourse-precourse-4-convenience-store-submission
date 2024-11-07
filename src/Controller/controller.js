@@ -10,6 +10,7 @@ class MainController {
     this.isAddPromotionProductsInput = null;
     this.isFixedPricePurchaseInput = null;
     this.isMembershipApplicationInput = null;
+    this.isAdditionalPurchaseInput = null;
   }
 
   async ProgramStart() {
@@ -18,6 +19,7 @@ class MainController {
     await this.getIsAddPromotionProducts();
     await this.getIsFixedPricePurchaseInput();
     await this.getIsMembershipApplicationInput();
+    await this.getIsAdditionalPurchaseInput();
   }
 
   async getProductNamesAndAmount() {
@@ -38,6 +40,11 @@ class MainController {
   async getIsMembershipApplicationInput() {
     this.isMembershipApplicationInput =
       await this.input.getIsMembershipApplicationInput();
+  }
+
+  async getIsAdditionalPurchaseInput() {
+    this.isAdditionalPurchaseInput =
+      await this.input.getIsAdditionalPurchaseInput();
   }
 }
 

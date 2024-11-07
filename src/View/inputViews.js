@@ -8,6 +8,7 @@ export class Input {
     this.isPromotionProductsInput = null;
     this.isFixedPricePurchaseInput = null;
     this.isMembershipApplicationInput = null;
+    this.isAdditionalPurchaseInput = null;
   }
 
   async getProductNamesAndAmountInput() {
@@ -60,6 +61,20 @@ export class Input {
         );
         // TODO: 유효성 검사 파일 추후 삽입
         return this.isMembershipApplicationInput;
+      } catch (e) {
+        Console.print(e.message);
+      }
+    }
+  }
+
+  async getIsAdditionalPurchaseInput() {
+    while (true) {
+      try {
+        this.isAdditionalPurchaseInput = await Console.readLineAsync(
+          INPUT_MESSAGE.IS_ADDITIONAL_PURCHASE
+        );
+        // TODO: 유효성 검사 파일 추후 삽입
+        return this.isAdditionalPurchaseInput;
       } catch (e) {
         Console.print(e.message);
       }
