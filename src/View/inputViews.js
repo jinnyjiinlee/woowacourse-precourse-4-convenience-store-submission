@@ -6,6 +6,8 @@ export class Input {
   constructor() {
     this.productNamesAndAmount = null;
     this.isPromotionProductsInput = null;
+    this.isFixedPricePurchaseInput = null;
+    this.isMembershipApplicationInput = null;
   }
 
   async getProductNamesAndAmountInput() {
@@ -39,11 +41,25 @@ export class Input {
   async getIsFixedPricePurchaseInput() {
     while (true) {
       try {
-        this.IsFixedPricePurchaseInput = await Console.readLineAsync(
+        this.isFixedPricePurchaseInput = await Console.readLineAsync(
           INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE
         );
         // TODO: 유효성 검사 파일 추후 삽입
-        return this.IsFixedPricePurchaseInput;
+        return this.isFixedPricePurchaseInput;
+      } catch (e) {
+        Console.print(e.message);
+      }
+    }
+  }
+
+  async getIsMembershipApplicationInput() {
+    while (true) {
+      try {
+        this.isMembershipApplicationInput = await Console.readLineAsync(
+          INPUT_MESSAGE.IS_MEMBERSHIP_APPLICATION
+        );
+        // TODO: 유효성 검사 파일 추후 삽입
+        return this.isMembershipApplicationInput;
       } catch (e) {
         Console.print(e.message);
       }
