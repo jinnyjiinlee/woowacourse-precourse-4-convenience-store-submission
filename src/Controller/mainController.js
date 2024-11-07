@@ -1,5 +1,6 @@
 import { Input } from '../View/inputViews.js';
 import { Output } from '../View/outputViews.js';
+import { extractProductNamesAndAmount } from './parsedProductNamesAndAmount.js';
 
 class MainController {
   constructor() {
@@ -16,10 +17,9 @@ class MainController {
   async ProgramStart() {
     this.output.printProductsInPossessionList();
     await this.getProductNamesAndAmount();
-    await this.getIsAddPromotionProducts();
-    await this.getIsFixedPricePurchaseInput();
-    await this.getIsMembershipApplicationInput();
-    await this.getIsAdditionalPurchaseInput();
+    const productNameAndAmountArr = extractProductNamesAndAmount(
+      this.productNamesAndAmount
+    );
   }
 
   async getProductNamesAndAmount() {
