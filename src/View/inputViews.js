@@ -1,6 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { INPUT_MESSAGE, OUTPUT_MESSAGE } from '../Constant/messages.js';
-import { Output } from './outputViews.js';
+import { INPUT_MESSAGE } from '../Constant/messages.js';
 
 export class Input {
   constructor() {
