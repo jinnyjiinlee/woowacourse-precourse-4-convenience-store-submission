@@ -8,13 +8,14 @@ class MainController {
 
     this.productNamesAndAmount = null;
     this.isAddPromotionProductsInput = null;
+    this.isFixedPricePurchaseInput = null;
   }
 
   async ProgramStart() {
     this.output.printProductsInPossessionList();
     await this.getProductNamesAndAmount();
     await this.getIsAddPromotionProducts();
-
+    await this.getIsFixedPricePurchaseInput();
   }
 
   async getProductNamesAndAmount() {
@@ -25,6 +26,11 @@ class MainController {
   async getIsAddPromotionProducts() {
     this.isAddPromotionProductsInput =
       await this.input.getIsAddPromotionProductsInput();
+  }
+
+  async getIsFixedPricePurchaseInput() {
+    this.isFixedPricePurchaseInput =
+      await this.input.getIsFixedPricePurchaseInput();
   }
 }
 
