@@ -24,6 +24,14 @@ const NORMAL_COUNT = {
   CUP_RAMEN: productCount[15][2],
 };
 
+const PROMOTION_PRODUCTS_NAME_LIST = {
+  COKE: '콜라',
+  SPRITE: '사이다',
+  ORANGE_JUICE: '오렌지주스',
+  SPARKLING_WATER: '탄산수',
+  POTATO_CHIP: '감자칩',
+  CHOCOLATE_BAR: '초코바',
+  CUP_RAMEN: '컵라면',
+};
 
-
-export { PROMOTION_COUNT, NORMAL_COUNT };
+export { PROMOTION_COUNT, NORMAL_COUNT, PROMOTION_PRODUCTS_NAME_LIST };

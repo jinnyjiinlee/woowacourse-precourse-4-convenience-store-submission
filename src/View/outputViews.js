@@ -4,15 +4,16 @@ import { OUTPUT_MESSAGE } from '../Constant/messages.js';
 
 export class Output {
   constructor() {
-    this.productsInPossessionListArr =
-      new ParedProductsData().parsedProductsInPossession();
+    this.productPrintList = null;
   }
 
   async printProductsInPossessionList() {
+    this.productPrintList = new ParedProductsData().generateProductPrintList();
+
     Console.print(OUTPUT_MESSAGE.WELCOME_GREETING);
 
     for (let i = 0; i < 16; i += 1) {
-      Console.print(this.productsInPossessionListArr[i]);
+      Console.print(this.productPrintList[i]);
     }
   }
 }

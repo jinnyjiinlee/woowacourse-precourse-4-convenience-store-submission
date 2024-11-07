@@ -1,15 +1,16 @@
 import { PROMOTION_COUNT } from '../Constant/productsCount.js';
 
 export const extractProductNamesAndAmount = (productNamesAndAmount) => {
-  console.log('productNamesAndAmount: ', productNamesAndAmount);
   // 대괄호 양쪽 없애기
   const firstSquareBracketsDelete = productNamesAndAmount.slice(1);
   const lastSquareBracketsDelete = firstSquareBracketsDelete.slice(0, -1);
 
   // 하이픈을 기준으로 상품명, 상품개수를 배열로 나누기
   const productNameAndAmount = lastSquareBracketsDelete.split('-');
+  // console.log('productNameAndAmount[0]: ', productNameAndAmount[0]);
+  // console.log('productNameAndAmount[1]: ', productNameAndAmount[1]);
 
-  return productNameAndAmount;
+  return [productNameAndAmount[0], productNameAndAmount[1]];
 };
 
 // const promotionProductsList = {

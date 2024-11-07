@@ -1,8 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
-import { INPUT_MESSAGE } from '../Constant/messages.js';
+import { InputMessage } from '../Constant/messages.js';
 
 export class Input {
   constructor() {
+    this.inputMessage = new InputMessage();
     this.productNamesAndAmount = null;
     this.isPromotionProductsInput = null;
     this.isFixedPricePurchaseInput = null;
@@ -14,7 +15,7 @@ export class Input {
     while (true) {
       try {
         this.productNamesAndAmount = await Console.readLineAsync(
-          INPUT_MESSAGE.PRODUCT_NAMES_AND_AMOUNT
+          this.inputMessage.INPUT_MESSAGE.PRODUCT_NAMES_AND_AMOUNT
         );
         // TODO: 유효성 검사 파일 추후 삽입
         return this.productNamesAndAmount;
@@ -24,11 +25,11 @@ export class Input {
     }
   }
 
-  async getIsAddPromotionProductsInput() {
+  async getIsAddPromotionProductsInput(productName) {
     while (true) {
       try {
         this.isPromotionProductsInput = await Console.readLineAsync(
-          INPUT_MESSAGE.IS_VALID_PROMOTION_ADD
+          this.inputMessage.INPUT_MESSAGE.IS_VALID_PROMOTION_ADD(productName)
         );
         // TODO: 유효성 검사 파일 추후 삽입
         return this.isPromotionProductsInput;
@@ -42,7 +43,7 @@ export class Input {
     while (true) {
       try {
         this.isFixedPricePurchaseInput = await Console.readLineAsync(
-          INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE
+          this.inputMessage.INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE
         );
         // TODO: 유효성 검사 파일 추후 삽입
         return this.isFixedPricePurchaseInput;
@@ -56,7 +57,7 @@ export class Input {
     while (true) {
       try {
         this.isMembershipApplicationInput = await Console.readLineAsync(
-          INPUT_MESSAGE.IS_MEMBERSHIP_APPLICATION
+          this.inputMessage.INPUT_MESSAGE.IS_MEMBERSHIP_APPLICATION
         );
         // TODO: 유효성 검사 파일 추후 삽입
         return this.isMembershipApplicationInput;
@@ -70,7 +71,7 @@ export class Input {
     while (true) {
       try {
         this.isAdditionalPurchaseInput = await Console.readLineAsync(
-          INPUT_MESSAGE.IS_ADDITIONAL_PURCHASE
+          this.inputMessage.INPUT_MESSAGE.IS_ADDITIONAL_PURCHASE
         );
         // TODO: 유효성 검사 파일 추후 삽입
         return this.isAdditionalPurchaseInput;
