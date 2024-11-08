@@ -2,6 +2,8 @@ import {
   PROMOTION_PRODUCTS_NAME_LIST,
   USER_RECEIVED_PRODUCT_AMOUNT,
   TOTAL_PRODUCTS_NAME_LIST,
+  NORMAL_PRODUCT_AMOUNT,
+  PROMOTION_PRODUCT_AMOUNT,
 } from '../Constant/productsCount.js';
 import { CheckGiftOrDiscountStatus } from '../Model/productAmountAndNotPromotion.js';
 import { Input } from '../View/inputViews.js';
@@ -20,6 +22,9 @@ class MainController {
     this.isAdditionalPurchaseInput = null;
 
     this.selectedProductAmounts = [];
+
+    this.PROMOTION_PRODUCT_AMOUNT = PROMOTION_PRODUCT_AMOUNT;
+    this.NORMAL_PRODUCT_AMOUNT = NORMAL_PRODUCT_AMOUNT;
   }
 
   async ProgramStart() {
@@ -31,17 +36,23 @@ class MainController {
       this.selectedProductNamesAndAmount
     );
 
+    console.log('this.NORMAL_PRODUCT_AMOUNT: ', this.NORMAL_PRODUCT_AMOUNT)
+    console.log('this.PROMOTION_PRODUCT_AMOUNT: ', this.PROMOTION_PRODUCT_AMOUNT)
+
     for (let i = 0; i < this.totalProductNameAndAmount.length; i += 1) {
       this.productName = this.totalProductNameAndAmount[i][0];
       this.productAmount = Number(this.totalProductNameAndAmount[i][1]);
       this.AdjustmentAmount = 0;
 
-      console.log(this.productName)
-
       // 프로모션 적용 여부 확인
       this.eligiblePromotionProduct = Object.keys(
         PROMOTION_PRODUCTS_NAME_LIST
       ).find((key) => PROMOTION_PRODUCTS_NAME_LIST[key] === this.productName);
+
+      console.log(
+        'this.eligiblePromotionProduct: ',
+        this.eligiblePromotionProduct
+      );
 
       if (this.eligiblePromotionProduct) {
         //만약 값이 있다면,
@@ -78,6 +89,58 @@ class MainController {
       );
 
       USER_RECEIVED_PRODUCT_AMOUNT[this.productNameKey] = this.productAmount;
+      console.log(
+        'USER_RECEIVED_PRODUCT_AMOUNT[this.productNameKey] :',
+        USER_RECEIVED_PRODUCT_AMOUNT[this.productNameKey]
+      );
+
+      if (this.eligiblePromotionProduct) {
+        // updateProductStock
+        if (
+          this.PROMOTION_PRODUCT_AMOUNT[this.productNameKey] >=
+          this.productAmount
+        ) {
+          // 프로모션 재고가 충분한 경우, 요청된 수량만큼 프로모션 재고에서 차감
+          this.PROMOTION_PRODUCT_AMOUNT[this.productNameKey] -=
+            this.productAmount;
+
+          // 프로모션 재고가 0이 되면 '재고 없음'으로 표시
+          if (this.PROMOTION_PRODUCT_AMOUNT[this.productNameKey] <= 0) {
+            this.PROMOTION_PRODUCT_AMOUNT[this.productNameKey] = '재고 없음';
+          }
+        } else {
+          // 프로모션 재고가 부족한 경우
+          this.remainingAmount =
+            this.productAmount -
+            this.PROMOTION_PRODUCT_AMOUNT[this.productNameKey];
+
+          // 프로모션 재고를 모두 소진하고 '재고 없음'으로 표시
+          this.PROMOTION_PRODUCT_AMOUNT[this.productNameKey] = '재고 없음';
+
+          // 남은 수량만큼 일반 재고에서 차감
+          this.NORMAL_PRODUCT_AMOUNT[this.productNameKey] -=
+            this.remainingAmount;
+
+          // 일반 재고가 0 이하가 되면 '재고 없음'으로 표시
+          if (this.NORMAL_PRODUCT_AMOUNT[this.productNameKey] <= 0) {
+            this.NORMAL_PRODUCT_AMOUNT[this.productNameKey] = '재고 없음';
+          }
+        }
+      }
+      if (!this.eligiblePromotionProduct) {
+        this.productNameKey = Object.keys(TOTAL_PRODUCTS_NAME_LIST).find(
+          (key) => TOTAL_PRODUCTS_NAME_LIST[key] === this.productName
+        );
+        // 남은 수량만큼 일반 재고에서 차감
+        this.NORMAL_PRODUCT_AMOUNT[this.productNameKey] -= this.productAmount;
+
+        // 일반 재고가 0 이하가 되면 '재고 없음'으로 표시
+        if (this.NORMAL_PRODUCT_AMOUNT[this.productNameKey] <= 0) {
+          this.NORMAL_PRODUCT_AMOUNT[this.productNameKey] = '재고 없음';
+        }
+      }
+      console.log('this.NORMAL_PRODUCT_AMOUNT: ', this.NORMAL_PRODUCT_AMOUNT)
+      console.log('this.PROMOTION_PRODUCT_AMOUNT: ', this.PROMOTION_PRODUCT_AMOUNT)
     }
   }
 
