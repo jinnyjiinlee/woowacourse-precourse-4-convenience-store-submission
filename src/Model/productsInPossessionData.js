@@ -13,12 +13,11 @@ export class ParedProductsData {
     this.lineSeparatedProductsData = null;
   }
 
-  exportProductsLowData = () => {
-    this.productsLowData = fs.readFileSync(
-      '/Users/jinny/Desktop/WOOWA_PRECOURSE/javascript-convenience-store-7-jinnyjiinlee/public/products.md',
-      'utf8'
-    );
-  };
+  generateProductPrintList() {
+    this.productsInPossession();
+
+    return this.finalProductsInPossessionList;
+  }
 
   productsInPossession = () => {
     this.exportProductsLowData();
@@ -47,9 +46,10 @@ export class ParedProductsData {
     return this.lowProductsList;
   };
 
-  generateProductPrintList() {
-    this.productsInPossession();
-
-    return this.finalProductsInPossessionList;
-  }
+  exportProductsLowData = () => {
+    this.productsLowData = fs.readFileSync(
+      '/Users/jinny/Desktop/WOOWA_PRECOURSE/javascript-convenience-store-7-jinnyjiinlee/public/products.md',
+      'utf8'
+    );
+  };
 }

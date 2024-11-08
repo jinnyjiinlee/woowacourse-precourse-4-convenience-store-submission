@@ -25,7 +25,7 @@ export class Input {
     }
   }
 
-  async getIsAddPromotionProductsInput(productName) {
+  async getAddGiftConfirmationInput(productName) {
     while (true) {
       try {
         this.isPromotionProductsInput = await Console.readLineAsync(
@@ -39,11 +39,11 @@ export class Input {
     }
   }
 
-  async getIsFixedPricePurchaseInput(productName, noPromotionProductAmount) {
+  async getFixedPriceConfirmationInput(productName, AdjustmentAmount) {
     while (true) {
       try {
         this.isFixedPricePurchaseInput = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE(productName, noPromotionProductAmount)
+          this.inputMessage.INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE(productName, AdjustmentAmount)
         );
         // TODO: 유효성 검사 파일 추후 삽입
         return this.isFixedPricePurchaseInput;

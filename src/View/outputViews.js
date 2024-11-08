@@ -4,7 +4,7 @@ import { OUTPUT_MESSAGE } from '../Constant/messages.js';
 
 export class Output {
   constructor() {
-    this.productPrintList = null;
+    this.productPrintList = [];
   }
 
   async printProductsInPossessionList() {
