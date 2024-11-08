@@ -1,5 +1,5 @@
 import { PRODUCTS } from '../Constant/productsCount.js';
-import { CheckGiftOrDiscountStatus } from '../Model/productAmountAndNotPromotion.js';
+import { CheckGiftOrDiscountStatus } from '../Model/giftOrDiscountStatusChecking.js';
 import { Input } from '../View/inputViews.js';
 import { Output } from '../View/outputViews.js';
 import { extractProductNamesAndAmount } from './parsedProductNamesAndAmount.js';

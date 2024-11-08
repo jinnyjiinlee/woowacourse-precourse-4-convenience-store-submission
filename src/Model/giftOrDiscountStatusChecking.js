@@ -17,11 +17,6 @@ export class CheckGiftOrDiscountStatus {
     this.targetProduct = this.PRODUCTS.find(
       (product) => product.productName === this.productName
     );
-    // console.log(
-    //   'this.targetProduct.promotionStock: ',
-    //   this.targetProduct.promotionStock
-    // );
-    // console.log('this.productAmount.: ', this.targetProduct.promotionStock);
 
     if (this.targetProduct.promotionStock > this.productAmount) {
       this.applyExtraPromotion();
