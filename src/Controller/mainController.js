@@ -36,6 +36,8 @@ class MainController {
       this.productAmount = Number(this.totalProductNameAndAmount[i][1]);
       this.AdjustmentAmount = 0;
 
+      console.log(this.productName)
+
       // 프로모션 적용 여부 확인
       this.eligiblePromotionProduct = Object.keys(
         PROMOTION_PRODUCTS_NAME_LIST
