@@ -69,7 +69,7 @@ export class receiptPrinting {
       Console.print(
         `${this.purchasedProductName[i].padEnd(10, 'ㅡ')} ${String(
           this.purchasedProductAmount[i]
-        ).padEnd(5, ' ')}  ${String(this.purchasedProductPriceResult).padStart(
+        ).padEnd(5, ' ')}  ${String(this.purchasedProductPriceResult.toLocaleString()).padStart(
           10,
           ' '
         )}`
@@ -100,7 +100,7 @@ export class receiptPrinting {
     Console.print(
       `총구매액 ${String(this.totalPurchasedProductAmount).padStart(
         13
-      )} ${String(this.totalPurchasedProductPrice).padStart(14)}`
+      )} ${String(this.totalPurchasedProductPrice.toLocaleString()).padStart(14)}`
     );
   }
 
@@ -129,12 +129,12 @@ export class receiptPrinting {
 
     // TODO: 나중에 간격 맞추기
     Console.print(
-      `행사할인                        -${this.totalGiftPurchasedProductPrice}`
+      `행사할인                        -${this.totalGiftPurchasedProductPrice.toLocaleString()}`
     );
     Console.print(
-      `맴버십할인                      -${this.membershipDiscountPrice}`
+      `맴버십할인                      -${this.membershipDiscountPrice.toLocaleString()}`
     );
-    Console.print(`내실돈                          ${this.priceForPay}`);
+    Console.print(`내실돈                          ${this.priceForPay.toLocaleString()}`);
   }
 
   calculateMembershipDiscount() {
