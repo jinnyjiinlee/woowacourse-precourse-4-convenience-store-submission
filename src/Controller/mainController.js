@@ -43,11 +43,10 @@ class MainController {
       if (!this.eligiblePromotionProduct) {
         // console.log('들어오면 안돼! ');
         // 남은 수량만큼 일반 재고에서 차감
-   
+
         this.matchingRegularStock = this.targetProduct.regularStock;
 
         this.matchingRegularStock -= this.productAmount;
-
 
         this.targetProduct.totalReceivedAmount = this.productAmount;
 
@@ -138,7 +137,9 @@ class MainController {
         } // 프로모션 상품 끝
       }
     }
-    new receiptPrinting().printReceipt();
+    await this.getIsMembershipApplicationInput();
+
+    new receiptPrinting().printReceipt(this.isMembershipApplicationInput);
   }
 
   async getProductNamesAndAmount() {

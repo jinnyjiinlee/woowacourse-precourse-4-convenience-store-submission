@@ -104,7 +104,7 @@ export class receiptPrinting {
     );
   }
 
-  printReceipt() {
+  printReceipt(isMembershipApplicationInput) {
     this.extractPurchaseProductDetails();
     this.printReceiptHeader();
     this.printPurchasedProductDetails();
@@ -119,8 +119,12 @@ export class receiptPrinting {
     this.printTotalPurchaseAmount();
 
     // 맴버십 함수 실행
-    this.calculateMembershipDiscount();
+    if (isMembershipApplicationInput === 'Y') {
+      this.calculateMembershipDiscount();
+    }
+
     // 내실돈 함수 실행
+
     this.calculatePriceForPay();
 
     // TODO: 나중에 간격 맞추기
