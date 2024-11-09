@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { PRODUCTS, RECEIPT_TEXT } from '../Constant/productsCount.js';
+import { PRODUCTS } from '../Constant/productsCount.js';
 
 export class receiptPrinting {
   printReceipt() {
@@ -38,13 +38,28 @@ export class receiptPrinting {
       );
     }
 
-    // Console.print('=============증	   정===============');
-    // Console.print(`${콜라}             ${1}             `);
+    const giftPurchasedProductName = PRODUCTS.filter(
+      (product) => product.receivedGiftAmount > 0
+    ).map((product) => product.productName);
 
-    // Console.print('====================================');
-    // Console.print(`총구매액             ${8}     ${(13, 000)}`);
-    // Console.print(`행사할인                     -${(13, 000)}`);
-    // Console.print(`맴버십할인                    -${(13, 000)}`);
-    // Console.print(`내실돈                       ${(13, 000)}`);
+    const giftPurchasedProductAmount = PRODUCTS.filter(
+      (product) => product.receivedGiftAmount > 0
+    ).map((product) => product.receivedGiftAmount);
+
+    Console.print('\n' + '=============증      정===============');
+
+    for (let i = 0; i < giftPurchasedProductName.length; i += 1) {
+      Console.print(
+        `${giftPurchasedProductName[i].padEnd(10, 'ㅡ')} ${String(
+          giftPurchasedProductAmount[i]
+        ).padEnd(1, ' ')}`
+      );
+    }
   }
 }
+
+// Console.print('====================================');
+// Console.print(`총구매액             ${8}     ${(13, 000)}`);
+// Console.print(`행사할인                     -${(13, 000)}`);
+// Console.print(`맴버십할인                    -${(13, 000)}`);
+// Console.print(`내실돈                       ${(13, 000)}`);

@@ -43,12 +43,11 @@ class MainController {
       if (!this.eligiblePromotionProduct) {
         // console.log('들어오면 안돼! ');
         // 남은 수량만큼 일반 재고에서 차감
-        console.log('this.matchingRegularStock: ', this.matchingRegularStock);
-        console.log();
+   
         this.matchingRegularStock = this.targetProduct.regularStock;
-        console.log('this.matchingRegularStock: ', this.matchingRegularStock);
+
         this.matchingRegularStock -= this.productAmount;
-        console.log('this.matchingRegularStock: ', this.matchingRegularStock);
+
 
         this.targetProduct.totalReceivedAmount = this.productAmount;
 
@@ -89,36 +88,56 @@ class MainController {
 
         this.targetProduct.totalReceivedAmount = this.productAmount;
 
-        if (this.eligiblePromotionProduct) {
-          // updateProductStock
-          if (this.targetProduct.promotionStock) {
-            // 프로모션 재고가 충분한 경우, 요청된 수량만큼 프로모션 재고에서 차감
-            this.targetProduct.promotionStock -= this.productAmount;
-
-            // 프로모션 재고가 0이 되면 '재고 없음'으로 표시
-            if (this.targetProduct.promotionStock <= 0) {
-              this.targetProduct.promotionStock = '재고 없음';
-            }
-          } else {
-            // 프로모션 재고가 부족한 경우
-            this.remainingAmount =
-              this.productAmount - this.targetProduct.promotionStock;
-
-            // 프로모션 재고를 모두 소진하고 '재고 없음'으로 표시
-            this.targetProduct.promotionStock = '재고 없음';
-
-            // 남은 수량만큼 일반 재고에서 차감
-            this.targetProduct.regularStock -= this.remainingAmount;
-
-            // 일반 재고가 0 이하가 되면 '재고 없음'으로 표시
-            if (this.targetProduct.regularStock <= 0) {
-              this.targetProduct.regularStock = '재고 없음';
-            }
-          }
+        //  1+1일때
+        if (
+          this.productName === '오렌지주스' ||
+          this.productName === '감자칩' ||
+          this.productName === '초코바' ||
+          this.productName === '컵라면'
+        ) {
+          this.targetProduct.receivedGiftAmount = Math.floor(
+            this.productAmount / 2
+          );
         }
+
+        // 2+1 일때, 콜라, 사이다, 탄산수
+        if (
+          this.productName === '콜라' ||
+          this.productName === '사이다' ||
+          this.productName === '탄산수'
+        ) {
+          this.targetProduct.receivedGiftAmount = Math.floor(
+            this.targetProduct.totalReceivedAmount / 3
+          );
+        }
+
+        // updateProductStock
+        if (this.targetProduct.promotionStock) {
+          // 프로모션 재고가 충분한 경우, 요청된 수량만큼 프로모션 재고에서 차감
+          this.targetProduct.promotionStock -= this.productAmount;
+
+          // 프로모션 재고가 0이 되면 '재고 없음'으로 표시
+          if (this.targetProduct.promotionStock <= 0) {
+            this.targetProduct.promotionStock = '재고 없음';
+          }
+        } else {
+          // 프로모션 재고가 부족한 경우
+          this.remainingAmount =
+            this.productAmount - this.targetProduct.promotionStock;
+
+          // 프로모션 재고를 모두 소진하고 '재고 없음'으로 표시
+          this.targetProduct.promotionStock = '재고 없음';
+
+          // 남은 수량만큼 일반 재고에서 차감
+          this.targetProduct.regularStock -= this.remainingAmount;
+
+          // 일반 재고가 0 이하가 되면 '재고 없음'으로 표시
+          if (this.targetProduct.regularStock <= 0) {
+            this.targetProduct.regularStock = '재고 없음';
+          }
+        } // 프로모션 상품 끝
       }
     }
-
     new receiptPrinting().printReceipt();
   }
 
