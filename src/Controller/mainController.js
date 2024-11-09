@@ -17,6 +17,7 @@ class MainController {
     this.isAdditionalPurchaseInput = null;
 
     this.targetProduct = null;
+    this.additionalPurchaseResponse = null;
   }
 
   async ProgramStart() {
@@ -140,6 +141,12 @@ class MainController {
     await this.getIsMembershipApplicationInput();
 
     new receiptPrinting().printReceipt(this.isMembershipApplicationInput);
+
+    await this.getIsAdditionalPurchaseInput();
+
+    if (this.isAdditionalPurchaseInput === 'Y') {
+      await this.ProgramStart();
+    }
   }
 
   async getProductNamesAndAmount() {
