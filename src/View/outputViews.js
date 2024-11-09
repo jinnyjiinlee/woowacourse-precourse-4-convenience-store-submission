@@ -10,21 +10,30 @@ export class Output {
     Console.print(OUTPUT_MESSAGE.WELCOME_GREETING);
 
     PRODUCTS.forEach((product) => {
-      // 프로모션 재고가 있을 경우 출력
-      if (product.promotionStock) {
+      // 프로모션 재고 출력
+      if (product.promotionStock !== null) {
+        let promotionStockText = `${product.promotionStock}개 ${
+          product.promotionType || ''}`;
+        if (product.promotionStock === 0) {
+          promotionStockText = '재고 없음';
+        }
+
         Console.print(
-          `${product.productName} ${product.price}원 ${product.promotionStock}개 ${product.promotionType}`
+          `- ${product.productName} ${product.price.toLocaleString()}원 ${promotionStockText}`
         );
       }
 
-      // 일반 재고가 있을 경우 출력
-      if (product.regularStock) {
+      // 일반 재고 출력
+      if (product.regularStock !== null) {
+        let regularStockText = `${product.regularStock}개`;
+        if (product.regularStock === 0) {
+          regularStockText = '재고 없음';
+        }
+
         Console.print(
-          `${product.productName} ${product.price}원 ${product.regularStock}개`
+          `- ${product.productName} ${product.price.toLocaleString()}원 ${regularStockText}`
         );
       }
     });
   }
-
-
 }

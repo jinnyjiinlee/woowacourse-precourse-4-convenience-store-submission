@@ -1,4 +1,3 @@
-import { Console } from '@woowacourse/mission-utils';
 import { PRODUCTS } from '../Constant/productsCount.js';
 import { extractProductNamesAndAmount } from '../Utils/parsedProductNamesAndAmount.js';
 

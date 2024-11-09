@@ -16,8 +16,8 @@ const PRODUCTS = [
   {
     productName: rawProductList[2][0],
     price: 1000,
-    regularStock: 8,
-    promotionStock: 7,
+    regularStock: 7,
+    promotionStock: 8,
     promotionType: '탄산2+1',
     totalReceivedAmount: 0,
     receivedGiftAmount: 0,
@@ -25,7 +25,7 @@ const PRODUCTS = [
   {
     productName: rawProductList[4][0],
     price: 1800,
-    regularStock: null,
+    regularStock: 0,
     promotionStock: 9,
     promotionType: 'MD추천상품',
     totalReceivedAmount: 0,
@@ -34,7 +34,7 @@ const PRODUCTS = [
   {
     productName: rawProductList[5][0],
     price: 1200,
-    regularStock: null,
+    regularStock: 0,
     promotionStock: 5,
     promotionType: '탄산2+1',
     totalReceivedAmount: 0,
