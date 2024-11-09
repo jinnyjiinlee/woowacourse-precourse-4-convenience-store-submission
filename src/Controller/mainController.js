@@ -2,14 +2,18 @@ import { PRODUCTS } from '../Constant/productsCount.js';
 import { CheckGiftOrDiscountStatus } from '../Model/giftOrDiscountStatusChecking.js';
 import { Input } from '../View/inputViews.js';
 import { Output } from '../View/outputViews.js';
-import { extractProductNamesAndAmount } from './parsedProductNamesAndAmount.js';
+import { extractProductNamesAndAmount } from '../Utils/parsedProductNamesAndAmount.js';
 import { receiptPrinting } from '../Model/calculatorForReceiptPrinting.js';
+import { Console } from '@woowacourse/mission-utils';
+import { PurchaseAmountValidator } from '../Validation/purchaseAmountValidator.js';
 
 class MainController {
   constructor() {
     this.input = new Input();
     this.output = new Output();
+
     this.productName = null;
+    this.productAmount = null;
 
     this.selectedProductNamesAndAmount = null;
     this.addGiftConfirmationResponse = null;
@@ -22,12 +26,15 @@ class MainController {
 
   async ProgramStart() {
     this.output.printProductsInPossessionList();
-
     await this.getProductNamesAndAmount();
 
     this.extractArrProductAndAmount = extractProductNamesAndAmount(
       this.selectedProductNamesAndAmount
     );
+
+    // new PurchaseAmountValidator().hasSufficientStock(
+    //   this.extractArrProductAndAmount
+    // );
 
     for (let i = 0; i < this.extractArrProductAndAmount.length; i += 1) {
       this.productName = this.extractArrProductAndAmount[i][0];
@@ -37,12 +44,16 @@ class MainController {
         (product) => product.productName === this.productName
       );
 
+      //재고 총량 구하기
+      this.totalStock =
+        this.targetProduct.regularStock + this.targetProduct.promotionStock;
+
       // 프로모션 적용 여부 확인 (프로모션 갯수 나오는 변수)
+
       this.eligiblePromotionProduct = this.targetProduct.promotionStock;
 
       // 프로모션 상품이 아니라면?
       if (!this.eligiblePromotionProduct) {
-        // console.log('들어오면 안돼! ');
         // 남은 수량만큼 일반 재고에서 차감
 
         this.matchingRegularStock = this.targetProduct.regularStock;

@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { InputMessage } from '../Constant/messages.js';
+import { PurchaseAmountValidator } from '../Validation/purchaseAmountValidator.js';
 
 export class Input {
   constructor() {
@@ -17,7 +18,8 @@ export class Input {
         this.productNamesAndAmount = await Console.readLineAsync(
           this.inputMessage.INPUT_MESSAGE.PRODUCT_NAMES_AND_AMOUNT
         );
-        // TODO: 유효성 검사 파일 추후 삽입
+        new PurchaseAmountValidator().hasSufficientStock(this.productNamesAndAmount);
+        
         return this.productNamesAndAmount;
       } catch (e) {
         Console.print(e.message);
@@ -43,7 +45,10 @@ export class Input {
     while (true) {
       try {
         this.isFixedPricePurchaseInput = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE(productName, AdjustmentAmount)
+          this.inputMessage.INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE(
+            productName,
+            AdjustmentAmount
+          )
         );
         // TODO: 유효성 검사 파일 추후 삽입
         return this.isFixedPricePurchaseInput;
