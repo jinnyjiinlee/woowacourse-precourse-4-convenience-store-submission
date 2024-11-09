@@ -14,7 +14,7 @@ export class PurchaseAmountValidator {
       productNamesAndAmount
     );
 
-    console.log('extractArrProductAndAmount: ', extractArrProductAndAmount);
+    // console.log('extractArrProductAndAmount: ', extractArrProductAndAmount);
 
     for (let i = 0; i < extractArrProductAndAmount.length; i += 1) {
       this.productName = extractArrProductAndAmount[i][0];
@@ -29,15 +29,15 @@ export class PurchaseAmountValidator {
         (this.targetProduct.regularStock ?? 0) +
         (this.targetProduct.promotionStock ?? 0);
 
-      console.log(
-        'this.targetProduct.regularStock: ',
-        this.targetProduct.regularStock
-      );
-      console.log(
-        'this.targetProduct.promotionStock: ',
-        this.targetProduct.promotionStock
-      );
-      console.log('this.totalStock: ', this.totalStock);
+      // console.log(
+      //   'this.targetProduct.regularStock: ',
+      //   this.targetProduct.regularStock
+      // );
+      // console.log(
+      //   'this.targetProduct.promotionStock: ',
+      //   this.targetProduct.promotionStock
+      // );
+      // console.log('this.totalStock: ', this.totalStock);
 
       if (this.productAmount > this.totalStock) {
         throw new Error(

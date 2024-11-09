@@ -65,14 +65,15 @@ export class receiptPrinting {
       this.totalPurchasedProductPrice += this.purchasedProductPriceResult;
       this.totalPurchasedProductAmount += this.purchasedProductAmount[i];
 
+      // console.log('purchasedProductName: ', this.purchasedProductName);
+
       // TODO: 'ㅡ'을 빈칸으로 만들어도 정렬되게 하기
       Console.print(
         `${this.purchasedProductName[i].padEnd(10, 'ㅡ')} ${String(
           this.purchasedProductAmount[i]
-        ).padEnd(5, ' ')}  ${String(this.purchasedProductPriceResult.toLocaleString()).padStart(
-          10,
-          ' '
-        )}`
+        ).padEnd(5, ' ')}  ${String(
+          this.purchasedProductPriceResult.toLocaleString()
+        ).padStart(10, ' ')}`
       );
     }
   }
@@ -100,11 +101,34 @@ export class receiptPrinting {
     Console.print(
       `총구매액 ${String(this.totalPurchasedProductAmount).padStart(
         13
-      )} ${String(this.totalPurchasedProductPrice.toLocaleString()).padStart(14)}`
+      )} ${String(this.totalPurchasedProductPrice.toLocaleString()).padStart(
+        14
+      )}`
     );
   }
 
   printReceipt(isMembershipApplicationInput) {
+    // 필요한 필드들을 초기화합니다.
+    this.purchasedProductName = null;
+    this.purchasedProductAmount = null;
+    this.purchasedProductPrice = null;
+    this.purchasedProductPriceResult = null;
+
+    this.giftPurchasedProductName = null;
+    this.giftPurchasedProductAmount = null;
+    this.giftPurchasedProductPrice = null;
+
+    this.totalPurchasedProductAmount = 0;
+    this.totalPurchasedProductPrice = 0;
+    this.totalGiftPurchasedProductPrice = 0;
+
+    this.membershipDiscountPrice = 0;
+    this.priceForPay = 0;
+
+    this.purchasedProducts = PRODUCTS.filter(
+      (product) => product.totalReceivedAmount > 0
+    );
+
     this.extractPurchaseProductDetails();
     this.printReceiptHeader();
     this.printPurchasedProductDetails();
@@ -134,7 +158,10 @@ export class receiptPrinting {
     Console.print(
       `맴버십할인                      -${this.membershipDiscountPrice.toLocaleString()}`
     );
-    Console.print(`내실돈                          ${this.priceForPay.toLocaleString()}`);
+
+    Console.print(
+      `내실돈                          ${this.priceForPay.toLocaleString()}`
+    );
   }
 
   calculateMembershipDiscount() {

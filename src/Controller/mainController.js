@@ -22,19 +22,26 @@ class MainController {
 
     this.targetProduct = null;
     this.additionalPurchaseResponse = null;
+
+    this.receiptPrinter = new receiptPrinting();
+  }
+
+  initializeTransaction() {
+    PRODUCTS.forEach((product) => {
+      product.totalReceivedAmount = 0; // 받은 총량 초기화
+      product.receivedGiftAmount = 0; // 받은 증정품 초기화
+    });
   }
 
   async ProgramStart() {
+    this.initializeTransaction(); // 거래 관련 필드 초기화
+
     this.output.printProductsInPossessionList();
     await this.getProductNamesAndAmount();
 
     this.extractArrProductAndAmount = extractProductNamesAndAmount(
       this.selectedProductNamesAndAmount
     );
-
-    // new PurchaseAmountValidator().hasSufficientStock(
-    //   this.extractArrProductAndAmount
-    // );
 
     for (let i = 0; i < this.extractArrProductAndAmount.length; i += 1) {
       this.productName = this.extractArrProductAndAmount[i][0];
