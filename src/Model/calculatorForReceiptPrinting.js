@@ -23,9 +23,15 @@ export class receiptPrinting {
     Console.print('==============W 편의점================');
     Console.print('상품명               수량         금액  ');
 
+    let totalPurchasedProductAmount = 0;
+    let totalPurchasedProductPrice = 0;
+
     for (let i = 0; i < purchasedProductName.length; i += 1) {
       const purchasedProductPriceResult =
         purchasedProductAmount[i] * purchasedProductPrice[i];
+
+      totalPurchasedProductPrice += purchasedProductPriceResult;
+      totalPurchasedProductAmount += purchasedProductAmount[i];
 
       // TODO: 'ㅡ'을 빈칸으로 만들어도 정렬되게 하기
       Console.print(
@@ -55,6 +61,13 @@ export class receiptPrinting {
         ).padEnd(1, ' ')}`
       );
     }
+    Console.print('\n' + '=====================================');
+    Console.print(
+      `총구매액 ${String(totalPurchasedProductAmount).padStart(13)} ${String(totalPurchasedProductPrice).padStart(14)}`
+    );
+    Console.print(`행사할인                     -{(13, 000)}`);
+    Console.print(`맴버십할인                   {(13, 000)}`);
+    Console.print(`내실돈                       {(13, 000)}`);
   }
 }
 
@@ -63,3 +76,5 @@ export class receiptPrinting {
 // Console.print(`행사할인                     -${(13, 000)}`);
 // Console.print(`맴버십할인                    -${(13, 000)}`);
 // Console.print(`내실돈                       ${(13, 000)}`);
+
+new receiptPrinting().printReceipt();
