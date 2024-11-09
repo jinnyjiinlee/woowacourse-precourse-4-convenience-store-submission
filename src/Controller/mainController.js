@@ -3,6 +3,7 @@ import { CheckGiftOrDiscountStatus } from '../Model/giftOrDiscountStatusChecking
 import { Input } from '../View/inputViews.js';
 import { Output } from '../View/outputViews.js';
 import { extractProductNamesAndAmount } from './parsedProductNamesAndAmount.js';
+import { receiptPrinting } from '../Model/calculatorForReceiptPrinting.js';
 
 class MainController {
   constructor() {
@@ -42,8 +43,14 @@ class MainController {
       if (!this.eligiblePromotionProduct) {
         // console.log('들어오면 안돼! ');
         // 남은 수량만큼 일반 재고에서 차감
-        const matchingRegularStock = this.targetProduct.regularStock;
-        matchingRegularStock -= this.productAmount;
+        console.log('this.matchingRegularStock: ', this.matchingRegularStock);
+        console.log();
+        this.matchingRegularStock = this.targetProduct.regularStock;
+        console.log('this.matchingRegularStock: ', this.matchingRegularStock);
+        this.matchingRegularStock -= this.productAmount;
+        console.log('this.matchingRegularStock: ', this.matchingRegularStock);
+
+        this.targetProduct.totalReceivedAmount = this.productAmount;
 
         // 일반 재고가 0 이하가 되면 '재고 없음'으로 표시
         if (this.targetProduct.regularStock <= 0) {
@@ -80,7 +87,7 @@ class MainController {
           this.productAmount -= this.AdjustmentAmount;
         }
 
-        this.targetProduct.userReceivedAmount = this.productAmount;
+        this.targetProduct.totalReceivedAmount = this.productAmount;
 
         if (this.eligiblePromotionProduct) {
           // updateProductStock
@@ -111,6 +118,8 @@ class MainController {
         }
       }
     }
+
+    new receiptPrinting().printReceipt();
   }
 
   async getProductNamesAndAmount() {
