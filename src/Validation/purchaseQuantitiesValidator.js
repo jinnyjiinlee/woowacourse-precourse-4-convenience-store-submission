@@ -14,8 +14,6 @@ export class PurchaseQuantitiesValidator {
       productNamesAndQuantities
     );
 
-    // console.log('extractArrProductAndQuantities: ', extractArrProductAndQuantities);
-
     for (let i = 0; i < extractArrProductAndQuantities.length; i += 1) {
       this.productName = extractArrProductAndQuantities[i][0];
       this.productQuantities = Number(extractArrProductAndQuantities[i][1]);
@@ -28,16 +26,6 @@ export class PurchaseQuantitiesValidator {
       this.totalStock =
         (this.targetProduct.regularStock ?? 0) +
         (this.targetProduct.promotionStock ?? 0);
-
-      // console.log(
-      //   'this.targetProduct.regularStock: ',
-      //   this.targetProduct.regularStock
-      // );
-      // console.log(
-      //   'this.targetProduct.promotionStock: ',
-      //   this.targetProduct.promotionStock
-      // );
-      // console.log('this.totalStock: ', this.totalStock);
 
       if (this.productQuantities > this.totalStock) {
         throw new Error(
