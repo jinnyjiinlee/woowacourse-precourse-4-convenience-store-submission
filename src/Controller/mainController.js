@@ -26,6 +26,7 @@ class MainController {
 
   async startProgram() {
     this.initializeTransaction(); // 거래 관련 필드 초기화
+
     this.output.printProductList();
 
     await this.getProductNamesAndQuantities();
@@ -54,12 +55,26 @@ class MainController {
   }
 
   findProductByName() {
+    console.log(
+      '\n\nthis.isEligibleForPromotion: ',
+      this.isEligibleForPromotion,
+    );
+
     this.targetProduct = PRODUCTS.find(
       (product) => product.productName === this.productName,
     );
   }
 
   checkPromotionActive() {
+    console.log(
+      '\n\nthis.targetProduct.promotionStock: ',
+      this.targetProduct.promotionStock,
+    );
+    console.log(
+      '\n\nthis.targetProduct.promotionStock > 0: ',
+      this.targetProduct.promotionStock > 0,
+    );
+
     if (
       this.targetProduct.promotionStock > 0 &&
       new PromotionActiveChecking().isPromotionActive(this.productName) === true
@@ -104,6 +119,8 @@ class MainController {
         this.productName,
         this.productQuantity,
       );
+    console.log('this.promotionInfo[0]: ', this.promotionInfo[0]);
+    console.log('this.promotionInfo[1]: ', this.promotionInfo[1]);
 
     this.promotionStatus = this.promotionInfo[0];
     this.adjustmentQuantity = this.promotionInfo[1];
@@ -187,6 +204,7 @@ class MainController {
       product.totalReceivedQuantities = 0; // 받은 총량 초기화
       product.receivedGiftQuantities = 0; // 받은 증정품 초기화
     });
+    this.isEligibleForPromotion = false; // 프로모션 상품 계속 true 유지 방지
   }
 
   async getProductNamesAndQuantities() {
