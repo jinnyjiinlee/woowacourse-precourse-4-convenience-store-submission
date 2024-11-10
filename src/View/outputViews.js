@@ -14,14 +14,36 @@ export class OutputView {
   }
 
   promotionStockChecking() {
-    if (this.product.promotionStock !== null) {
-      this.promotionStockText = `${this.product.promotionStock}개 ${
-        this.product.promotionType || ''
-      }`;
-      if (this.product.promotionStock === 0) {
-        this.printProductList.this.promotionStockText = '재고 없음';
-      }
-      this.promotionStockPrint();
+    this.promotionChecking();
+    this.promotionTypeChecking();
+
+    this.promotionStockPrint();
+  }
+
+  promotionChecking() {
+    if (this.product.promotionStock === null) {
+      this.promotionStockText = '';
+    }
+
+    if (
+      this.product.promotionStock === 0 ||
+      this.product.promotionStock === '재고 없음'
+    ) {
+      this.promotionStockText = '재고 없음';
+    }
+
+    if (this.product.promotionStock > 0 && this.product.promotionStock < 30) {
+      this.promotionStockText = `${this.product.promotionStock}개`;
+    }
+  }
+
+  promotionTypeChecking() {
+    if (this.product.promotionType === null) {
+      this.promotionType = '';
+    }
+
+    if (this.product.promotionType && this.product.promotionType !== null) {
+      this.promotionType = this.product.promotionType;
     }
   }
 
@@ -37,9 +59,7 @@ export class OutputView {
 
   promotionStockPrint() {
     Console.print(
-      `- ${this.product.productName} ${this.product.price.toLocaleString()}원 ${
-        this.promotionStockText
-      }`
+      `- ${this.product.productName} ${this.product.price.toLocaleString()}원 ${this.promotionStockText} ${this.promotionType}`,
     );
   }
 
@@ -47,7 +67,7 @@ export class OutputView {
     Console.print(
       `- ${this.product.productName} ${this.product.price.toLocaleString()}원 ${
         this.regularStockText
-      }`
+      }`,
     );
   }
 }
