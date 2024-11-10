@@ -17,7 +17,9 @@ export class OutputView {
     this.promotionChecking();
     this.promotionTypeChecking();
 
-    this.promotionStockPrint();
+    if(this.promotionStockText !== '') {
+      this.promotionStockPrint();
+    }
   }
 
   promotionChecking() {
