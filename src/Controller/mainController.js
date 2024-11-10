@@ -4,7 +4,7 @@ import { InputView } from '../View/inputViews.js';
 import { OutputView } from '../View/outputViews.js';
 import { parseProductDetails } from '../Utils/parsedProductNamesAndQuantities.js';
 import { ReceiptPrinting } from '../Model/calculatorForReceiptPrinting.js';
-import { isPromotionActive } from '../Model/calculatorForPromotionTime.js';
+import { PromotionActiveChecking } from '../Model/calculatorForPromotionTime.js';
 
 class MainController {
   constructor() {
@@ -49,7 +49,7 @@ class MainController {
       this.findProductByName();
       this.checkPromotionActive();
       this.processNonPromotionProduct();
-      this.processPromotionProduct();
+      await this.processPromotionProduct();
     }
   }
 
@@ -60,8 +60,11 @@ class MainController {
   }
 
   checkPromotionActive() {
-    if (this.targetProduct.promotionStock > 0 && isPromotionActive === true) {
-      this.isEligibleForPromotion === true;
+    if (
+      this.targetProduct.promotionStock > 0 &&
+      new PromotionActiveChecking().isPromotionActive(this.productName) === true
+    ) {
+      this.isEligibleForPromotion = true;
     }
   }
 
@@ -78,14 +81,15 @@ class MainController {
 
   async processPromotionProduct() {
     if (this.isEligibleForPromotion) {
-      this.applyEligiblePromotions();
+      await this.applyEligiblePromotions();
     }
   }
 
-  applyEligiblePromotions() {
+  async applyEligiblePromotions() {
+    //이것도 들어와 미치게싼
     this.handlePromotionProcess();
-    this.handleGiftConfirmation();
-    this.adjustProductQuantityForPromotion();
+    await this.handleGiftConfirmation();
+    await this.adjustProductQuantityForPromotion();
     this.applyOnePlusOnePromotion();
     this.applyTwoPlusOnePromotion();
     this.updatePromotionStock();
@@ -93,6 +97,8 @@ class MainController {
   }
 
   handlePromotionProcess() {
+    // 들어오긴 하네 !
+
     this.promotionInfo =
       new CheckGiftOrDiscountStatus().checkGiftOrDiscountStatus(
         this.productName,
