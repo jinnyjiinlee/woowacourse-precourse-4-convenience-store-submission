@@ -55,26 +55,12 @@ class MainController {
   }
 
   findProductByName() {
-    console.log(
-      '\n\nthis.isEligibleForPromotion: ',
-      this.isEligibleForPromotion,
-    );
-
     this.targetProduct = PRODUCTS.find(
       (product) => product.productName === this.productName,
     );
   }
 
   checkPromotionActive() {
-    console.log(
-      '\n\nthis.targetProduct.promotionStock: ',
-      this.targetProduct.promotionStock,
-    );
-    console.log(
-      '\n\nthis.targetProduct.promotionStock > 0: ',
-      this.targetProduct.promotionStock > 0,
-    );
-
     if (
       this.targetProduct.promotionStock > 0 &&
       new PromotionActiveChecking().isPromotionActive(this.productName) === true
@@ -119,8 +105,6 @@ class MainController {
         this.productName,
         this.productQuantity,
       );
-    console.log('this.promotionInfo[0]: ', this.promotionInfo[0]);
-    console.log('this.promotionInfo[1]: ', this.promotionInfo[1]);
 
     this.promotionStatus = this.promotionInfo[0];
     this.adjustmentQuantity = this.promotionInfo[1];
@@ -187,10 +171,10 @@ class MainController {
 
   // 프로모션 재고가 부족한 경우
   handleInsufficientPromotionStock() {
-    if (!this.targetProduct.promotionStock) {
+    if (this.targetProduct.promotionStock === '재고 없음') {
       this.remainingQuantity =
-        this.productQuantity - this.targetProduct.promotionStock;
-      this.targetProduct.promotionStock = '재고 없음';
+        this.productQuantity - this.targetProduct.initialPromotionStock;
+
       this.targetProduct.regularStock -= this.remainingQuantity;
 
       if (this.targetProduct.regularStock <= 0) {
