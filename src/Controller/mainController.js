@@ -69,11 +69,17 @@ class MainController {
     }
   }
 
+  // 프로모션 상품이 아닐떄,
+  // 프로모션에 === 재고 없을 때 또는 프로모션 === null
   processNonPromotionProduct() {
     if (!this.isEligibleForPromotion) {
       this.currentRegularStock = this.targetProduct.regularStock;
       this.currentRegularStock -= this.productQuantity;
-      this.targetProduct.totalReceivedQuantities = this.productQuantity;
+      this.targetProduct.totalReceivedQuantities += this.productQuantity;
+
+      this.targetProduct.regularStock -=
+        this.targetProduct.totalReceivedQuantities;
+
       if (this.targetProduct.regularStock <= 0) {
         this.targetProduct.regularStock = '재고 없음';
       }
