@@ -19,7 +19,7 @@ export class InputView {
         this.productNamesAndQuantities = await Console.readLineAsync(
           this.inputMessage.INPUT_MESSAGE.PRODUCT_NAMES_AND_Quantities
         );
-        new PurchaseQuantitiesValidator().validateAvailableStock(
+        new PurchaseQuantitiesValidator().validateProductDetails(
           this.productNamesAndQuantities
         );
 
