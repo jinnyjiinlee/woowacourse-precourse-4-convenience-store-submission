@@ -1,4 +1,4 @@
- # javascript-convenience-store-precourse
+# javascript-convenience-store-precourse
 
 ###  💸 W 편의점 결제 시스템
 

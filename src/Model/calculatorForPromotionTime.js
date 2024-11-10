@@ -1,41 +1,49 @@
-// TODO: 이후에 작업하기 
+import { Console, DateTimes } from '@woowacourse/mission-utils';
 
-// import fs from 'fs';
+import fs from 'fs';
 
-// const promotionRawData = fs.readFileSync(
-//   '/Users/jinny/Desktop/WOOWA_PRECOURSE/javascript-convenience-store-7-jinnyjiinlee/public/promotions.md',
-//   'utf8'
+const promotionDateRawData = fs.readFileSync(
+  '/Users/jinny/Desktop/WOOWA_PRECOURSE/javascript-convenience-store-7-jinnyjiinlee/public/promotions.md',
+  'utf8'
+);
+
+const promotionDataLines = promotionDateRawData.split('\n');
+
+const promotionDetail = [];
+
+for (let i = 0; i < promotionDataLines.length; i += 1) {
+  promotionDetail.push(promotionDataLines[i].split(','));
+}
+
+// console.log(promotionDetail);
+
+// 프로모션 날짜 확인 함수
+export const isPromotionActive = (promotionType) => {
+  const currentDate = DateTimes.now();
+
+  const startDate = promotions.find(
+    (promotion) => promotion.name === promotionType
+  ).start_date;
+
+  const endDate = promotions.find(
+    (promotion) => promotion.name === promotionType
+  ).end_date_date;
+
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  return currentDate >= start && currentDate <= end;
+};
+
+// 프로모션 목록 배열
+const promotions = [
+  { name: '탄산2+1', start_date: '2024-01-01', end_date: '2024-11-30' },
+  { name: 'MD추천상품', start_date: '2024-01-01', end_date: '2024-12-31' },
+  { name: '반짝할인', start_date: '2024-11-01', end_date: '20204-11-30' },
+];
+
+// console.log(isPromotionActive(sparklingStartDate, sparklingEndDate));
+// console.log(
+//   isPromotionActive(mdRecommendationStartDate, mdRecommendationEndDate)
 // );
-
-// const lineSeparatedProductsData = promotionRawData.split('\n');
-
-// const eachCategory = [];
-
-// for (let i = 0; i < lineSeparatedProductsData.length; i += 1) {
-//   eachCategory.push(lineSeparatedProductsData[i].split(','));
-// }
-
-// console.log(eachCategory);
-
-// // 프로모션 날짜 확인 함수
-// const isPromotionActive = (startDate, endDate) => {
-//   const currentDate = new Date();
-//   const start = new Date(startDate);
-//   const end = new Date(endDate);
-
-//   return currentDate >= start && currentDate <= end;
-// };
-
-// console.log('isPromotionActive: ', isPromotionActive)
-// // 프로모션 목록 배열
-// const promotions = [
-//   { name: '탄산2+1', start_date: '2024-01-01', end_date: '2024-12-31' },
-//   { name: 'MD추천상품', start_date: '2024-01-01', end_date: '2024-12-31' },
-//   { name: '반짝할인', start_date: '2024-11-01', end_date: '20204-11-30' },
-// ];
-
-// console.log(promotions.find((promotion) => promotion.name === '탄산2+1').start_date);
-// console.log(promotions.find((promotion) => promotion.name === 'MD추천상품').start_date);
-// console.log(promotions.find((promotion) => promotion.name === '반짝할인').start_date);
-
-// console.log(isPromotionActive('2024-01-01', '2024-12-31'))
+// console.log(isPromotionActive(flashDiscountStartDate, flashDiscountEndDate));

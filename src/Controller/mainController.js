@@ -4,6 +4,7 @@ import { Input } from '../View/inputViews.js';
 import { Output } from '../View/outputViews.js';
 import { extractProductNamesAndAmount } from '../Utils/parsedProductNamesAndAmount.js';
 import { receiptPrinting } from '../Model/calculatorForReceiptPrinting.js';
+import { isPromotionActive } from '../Model/calculatorForPromotionTime.js';
 
 class MainController {
   constructor() {
@@ -24,17 +25,10 @@ class MainController {
     this.receiptPrinter = new receiptPrinting();
   }
 
-  initializeTransaction() {
-    PRODUCTS.forEach((product) => {
-      product.totalReceivedAmount = 0; // 받은 총량 초기화
-      product.receivedGiftAmount = 0; // 받은 증정품 초기화
-    });
-  }
-
   async ProgramStart() {
     this.initializeTransaction(); // 거래 관련 필드 초기화
     this.output.printProductsInPossessionList();
-    
+
     await this.getProductNamesAndAmount();
 
     this.extractArrProductAndAmount = extractProductNamesAndAmount(
@@ -50,7 +44,9 @@ class MainController {
       );
 
       // 프로모션 적용 여부 확인 (프로모션 갯수 나오는 변수)
-      this.eligiblePromotionProduct = this.targetProduct.promotionStock;
+      if (this.targetProduct.promotionStock > 0 && isPromotionActive === true) {
+        this.eligiblePromotionProduct === true;
+      }
 
       // 프로모션 상품이 아니라면?
       if (!this.eligiblePromotionProduct) {
@@ -158,6 +154,13 @@ class MainController {
     if (this.isAdditionalPurchaseInput === 'Y') {
       await this.ProgramStart();
     }
+  }
+
+  initializeTransaction() {
+    PRODUCTS.forEach((product) => {
+      product.totalReceivedAmount = 0; // 받은 총량 초기화
+      product.receivedGiftAmount = 0; // 받은 증정품 초기화
+    });
   }
 
   async getProductNamesAndAmount() {
