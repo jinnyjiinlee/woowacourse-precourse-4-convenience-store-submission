@@ -41,6 +41,9 @@ class MainController {
     if (this.additionalPurchaseResponse === 'Y') {
       await this.startProgram();
     }
+    if (this.additionalPurchaseResponse === 'N') {
+      return;
+    }
   }
 
   async processProduct() {
