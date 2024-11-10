@@ -1,5 +1,5 @@
 import { PRODUCTS } from '../Constant/productsCount.js';
-import { extractProductNamesAndQuantities } from '../Utils/parsedProductNamesAndQuantities.js';
+import { parseProductDetails } from '../Utils/parsedProductNamesAndQuantities.js';
 
 export class PurchaseQuantitiesValidator {
   constructor() {
@@ -10,7 +10,7 @@ export class PurchaseQuantitiesValidator {
   }
 
   hasSufficientStock(productNamesAndQuantities) {
-    const extractArrProductAndQuantities = extractProductNamesAndQuantities(
+    const extractArrProductAndQuantities = parseProductDetails(
       productNamesAndQuantities
     );
 

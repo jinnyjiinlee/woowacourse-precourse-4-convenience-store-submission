@@ -3,7 +3,7 @@ import { OUTPUT_MESSAGE } from '../Constant/messages.js';
 import { PRODUCTS } from '../Constant/productsCount.js';
 
 export class OutputView {
-  async printProductsInPossessionList() {
+  async printProductList() {
     Console.print(OUTPUT_MESSAGE.WELCOME_GREETING);
 
     PRODUCTS.forEach((product) => {
@@ -16,9 +16,10 @@ export class OutputView {
   promotionStockChecking() {
     if (this.product.promotionStock !== null) {
       this.promotionStockText = `${this.product.promotionStock}개 ${
-        this.product.promotionType || ''}`;
+        this.product.promotionType || ''
+      }`;
       if (this.product.promotionStock === 0) {
-        this.printProductsInPossessionList.this.promotionStockText = '재고 없음';
+        this.printProductList.this.promotionStockText = '재고 없음';
       }
       this.promotionStockPrint();
     }
@@ -28,7 +29,8 @@ export class OutputView {
     if (this.product.regularStock !== null) {
       this.regularStockText = `${this.product.regularStock}개`;
       if (this.product.regularStock === 0) {
-        this.regularStockText = '재고 없음';}
+        this.regularStockText = '재고 없음';
+      }
       this.regularStockPrint();
     }
   }
