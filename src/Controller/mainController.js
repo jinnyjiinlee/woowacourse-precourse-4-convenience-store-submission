@@ -4,8 +4,6 @@ import { Input } from '../View/inputViews.js';
 import { Output } from '../View/outputViews.js';
 import { extractProductNamesAndAmount } from '../Utils/parsedProductNamesAndAmount.js';
 import { receiptPrinting } from '../Model/calculatorForReceiptPrinting.js';
-import { Console } from '@woowacourse/mission-utils';
-import { PurchaseAmountValidator } from '../Validation/purchaseAmountValidator.js';
 
 class MainController {
   constructor() {

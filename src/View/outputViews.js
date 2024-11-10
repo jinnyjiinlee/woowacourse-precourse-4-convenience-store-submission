@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { ParedProductsData } from '../Model/productsInPossessionData.js';
 import { OUTPUT_MESSAGE } from '../Constant/messages.js';
-import { PRODUCTS, RECEIPT_TEXT } from '../Constant/productsCount.js';
+import { PRODUCTS } from '../Constant/productsCount.js';
 
 export class Output {
   async printProductsInPossessionList() {
