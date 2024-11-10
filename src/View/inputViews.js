@@ -5,6 +5,7 @@ import { PurchaseQuantitiesValidator } from '../Validation/purchaseQuantitiesVal
 export class InputView {
   constructor() {
     this.inputMessage = new InputMessage();
+    
     this.productNamesAndQuantities = null;
     this.isPromotionProductsInput = null;
     this.isFixedPricePurchaseInput = null;
@@ -18,7 +19,7 @@ export class InputView {
         this.productNamesAndQuantities = await Console.readLineAsync(
           this.inputMessage.INPUT_MESSAGE.PRODUCT_NAMES_AND_Quantities
         );
-        new PurchaseQuantitiesValidator().hasSufficientStock(
+        new PurchaseQuantitiesValidator().validateAvailableStock(
           this.productNamesAndQuantities
         );
 

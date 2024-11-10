@@ -228,14 +228,14 @@
   - 힌트: indent(인덴트, 들여쓰기) depth를 줄이는 좋은 방법은 함수(또는 메서드)를 분리하면 된다.
 - [X] 3항 연산자를 쓰지 않는다.
 - [ ] 함수(또는 메서드)가 한 가지 일만 하도록 최대한 작게 만들어라.
-- [ ] Jest를 이용하여 정리한 기능 목록이 정상적으로 작동하는지 테스트 코드로 확인한다.
+- [X] Jest를 이용하여 정리한 기능 목록이 정상적으로 작동하는지 테스트 코드로 확인한다.
   - 테스트 도구 사용법이 익숙하지 않다면 아래 문서를 참고하여 학습한 후 테스트를 구현한다.
    - Using Matchers
    - Testing Asynchronous Code
    - Jest로 파라미터화 테스트하기: test.each(), describe.each()
 
 ### 3. 
-- [ ] else를 지양한다.
+- [X] else를 지양한다.
   - 때로는 if/else, switch문을 사용하는 것이 더 깔끔해 보일 수 있다. 어느 경우에 쓰는 것이 적절할지 스스로 고민해 본다.
   - 힌트: if 조건절에서 값을 return하는 방식으로 구현하면 else를 사용하지 않아도 된다.
 - [ ] 구현한 기능에 대한 단위 테스트를 작성한다. 단, UI 로직은 제외한다.
@@ -271,7 +271,7 @@
 <br/>
 
 ## 라이브러리
-- [ ] @woowacourse/mission-utils에서 제공하는 Console 및 DateTimes API를 사용하여 구현해야 한다.
+- [X] @woowacourse/mission-utils에서 제공하는 Console 및 DateTimes API를 사용하여 구현해야 한다.
   - 현재 날짜와 시간을 가져오려면 DateTimes의 now()를 활용한다.
   - 사용자의 값을 입력 및 출력하려면 Console.readLineAsync()와 Console.print()를 활용한다.
 

@@ -20,7 +20,7 @@ describe('PurchaseQuantitiesValidator', () => {
     const productNamesAndQuantities = '[콜라-20]'; // 총 재고는 15개인데 20개를 구매하려고 시도
 
     expect(() => {
-      purchaseQuantitiesValidator.hasSufficientStock(productNamesAndQuantities);
+      purchaseQuantitiesValidator.validateAvailableStock(productNamesAndQuantities);
     }).toThrow('[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.');
   });
 
@@ -28,7 +28,7 @@ describe('PurchaseQuantitiesValidator', () => {
     const productNamesAndQuantities = '[콜라-10]'; // 총 재고는 15개, 10개는 구매 가능
 
     expect(() => {
-      purchaseQuantitiesValidator.hasSufficientStock(productNamesAndQuantities);
+      purchaseQuantitiesValidator.validateAvailableStock(productNamesAndQuantities);
     }).not.toThrow();
   });
 });

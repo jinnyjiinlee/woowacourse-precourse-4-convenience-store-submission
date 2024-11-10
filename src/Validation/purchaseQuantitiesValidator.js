@@ -9,29 +9,34 @@ export class PurchaseQuantitiesValidator {
     this.targetProduct = null;
   }
 
-  hasSufficientStock(productNamesAndQuantities) {
-    const extractArrProductAndQuantities = parseProductDetails(
-      productNamesAndQuantities
+  validateAvailableStock(productNamesAndQuantities) {
+    this.parsedProductDetails = parseProductDetails(productNamesAndQuantities);
+    for (let i = 0; i < this.parsedProductDetails.length; i += 1) {
+      this.productName = this.parsedProductDetails[i][0];
+      this.productQuantity = Number(this.parsedProductDetails[i][1]);
+      this.findProductName();
+      this.calculateAvailableStock();
+      this.printErrorMessageForNoStock();
+    }
+  }
+
+  findProductName() {
+    this.targetProduct = PRODUCTS.find(
+      (product) => product.productName === this.productName,
     );
+  }
 
-    for (let i = 0; i < extractArrProductAndQuantities.length; i += 1) {
-      this.productName = extractArrProductAndQuantities[i][0];
-      this.productQuantity = Number(extractArrProductAndQuantities[i][1]);
+  calculateAvailableStock() {
+    this.totalStock =
+      (this.targetProduct.regularStock ?? 0) +
+      (this.targetProduct.promotionStock ?? 0);
+  }
 
-      this.targetProduct = PRODUCTS.find(
-        (product) => product.productName === this.productName
+  printErrorMessageForNoStock() {
+    if (this.productQuantity > this.totalStock) {
+      throw new Error(
+        '[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.',
       );
-
-      //재고 총량 구하기
-      this.totalStock =
-        (this.targetProduct.regularStock ?? 0) +
-        (this.targetProduct.promotionStock ?? 0);
-
-      if (this.productQuantity > this.totalStock) {
-        throw new Error(
-          '[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.'
-        );
-      }
     }
   }
 }
