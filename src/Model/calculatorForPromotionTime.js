@@ -1,9 +1,8 @@
-import { DateTimes } from '@woowacourse/mission-utils';
 import fs from 'fs';
 import path from 'path';
+import { DateTimes } from '@woowacourse/mission-utils';
 import { PRODUCTS } from '../Constant/productsCount.js';
 
-// 프로모션 데이터 읽어오기 (절대 경로)
 const promotionDateRawData = fs.readFileSync(
   path.resolve('public/promotions.md'),
   'utf8',
@@ -43,11 +42,21 @@ export class PromotionActiveChecking {
     ).promotionType;
   }
 
-  // TODO 배열 바로 가져오게 수정
-  // 프로모션 목록 배열
   promotions = [
-    { type: '탄산2+1', start_date: '2024-01-01', end_date: '2024-11-30' },
-    { type: 'MD추천상품', start_date: '2024-01-01', end_date: '2024-12-31' },
-    { type: '반짝할인', start_date: '2024-11-01', end_date: '20204-11-30' },
+    {
+      type: promotionDetail[1][0],
+      start_date: promotionDetail[1][3],
+      end_date: promotionDetail[1][4],
+    },
+    {
+      type: promotionDetail[2][0],
+      start_date: promotionDetail[2][3],
+      end_date: promotionDetail[2][4],
+    },
+    {
+      type: promotionDetail[3][0],
+      start_date: promotionDetail[3][3],
+      end_date: promotionDetail[3][4],
+    },
   ];
 }
