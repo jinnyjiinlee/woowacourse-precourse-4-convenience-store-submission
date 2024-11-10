@@ -26,18 +26,17 @@ class MainController {
 
   async startProgram() {
     this.initializeTransaction(); // 거래 관련 필드 초기화
-
     this.output.printProductList();
+
     await this.getProductNamesAndQuantities();
-
     this.parsedProductDetails = parseProductDetails(this.productDetailsInput);
+
     await this.processProduct();
-
     await this.getIsMembershipApplicationInput();
-
     new ReceiptPrinting().printReceipt(this.membershipApplicationResponse);
 
     await this.getIsAdditionalPurchaseInput();
+
     if (this.additionalPurchaseResponse === 'Y') {
       await this.startProgram();
     }
@@ -47,13 +46,17 @@ class MainController {
     for (let i = 0; i < this.parsedProductDetails.length; i += 1) {
       this.productName = this.parsedProductDetails[i][0];
       this.productQuantity = Number(this.parsedProductDetails[i][1]);
-      this.targetProduct = PRODUCTS.find(
-        (product) => product.productName === this.productName
-      );
+      this.findProductByName();
       this.checkPromotionActive();
       this.processNonPromotionProduct();
       this.processPromotionProduct();
     }
+  }
+
+  findProductByName() {
+    this.targetProduct = PRODUCTS.find(
+      (product) => product.productName === this.productName,
+    );
   }
 
   checkPromotionActive() {
@@ -67,7 +70,6 @@ class MainController {
       this.currentRegularStock = this.targetProduct.regularStock;
       this.currentRegularStock -= this.productQuantity;
       this.targetProduct.totalReceivedQuantities = this.productQuantity;
-
       if (this.targetProduct.regularStock <= 0) {
         this.targetProduct.regularStock = '재고 없음';
       }
@@ -75,33 +77,40 @@ class MainController {
   }
 
   async processPromotionProduct() {
-    // 프로모션 상품이 맞다면?
     if (this.isEligibleForPromotion) {
-      this.promotionInfo =
-        new CheckGiftOrDiscountStatus().checkGiftOrDiscountStatus(
-          this.productName,
-          this.productQuantity
-        );
-
-      this.promotionStatus = this.promotionInfo[0];
-      this.adjustmentQuantity = this.promotionInfo[1];
-
-      if (this.promotionStatus === '증정' && this.adjustmentQuantity > 0) {
-        await this.getAddGiftConfirmationInput();
-      }
-
-      this.adjustProductQuantityForPromotion();
-
-      this.applyOnePlusOnePromotion();
-      this.applyTwoPlusOnePromotion();
-
-      this.updatePromotionStock();
-      this.handleInsufficientPromotionStock();
+      this.applyEligiblePromotions();
     }
   }
 
+  applyEligiblePromotions() {
+    this.handlePromotionProcess();
+    this.handleGiftConfirmation();
+    this.adjustProductQuantityForPromotion();
+    this.applyOnePlusOnePromotion();
+    this.applyTwoPlusOnePromotion();
+    this.updatePromotionStock();
+    this.handleInsufficientPromotionStock();
+  }
+
+  handlePromotionProcess() {
+    this.promotionInfo =
+      new CheckGiftOrDiscountStatus().checkGiftOrDiscountStatus(
+        this.productName,
+        this.productQuantity,
+      );
+
+    this.promotionStatus = this.promotionInfo[0];
+    this.adjustmentQuantity = this.promotionInfo[1];
+  }
+
+  async handleGiftConfirmation() {
+    if (this.promotionStatus === '증정' && this.adjustmentQuantity > 0) {
+      await this.getAddGiftConfirmationInput();
+    }
+  }
+
+  //  1+1일때
   applyOnePlusOnePromotion() {
-    //  1+1일때
     if (
       this.productName === '오렌지주스' ||
       this.productName === '감자칩' ||
@@ -109,20 +118,20 @@ class MainController {
       this.productName === '컵라면'
     ) {
       this.targetProduct.receivedGiftQuantities = Math.floor(
-        this.productQuantity / 2
+        this.productQuantity / 2,
       );
     }
   }
 
+  // 2+1 일때, 콜라, 사이다, 탄산수
   applyTwoPlusOnePromotion() {
-    // 2+1 일때, 콜라, 사이다, 탄산수
     if (
       this.productName === '콜라' ||
       this.productName === '사이다' ||
       this.productName === '탄산수'
     ) {
       this.targetProduct.receivedGiftQuantities = Math.floor(
-        this.targetProduct.totalReceivedQuantities / 3
+        this.targetProduct.totalReceivedQuantities / 3,
       );
     }
   }
@@ -188,7 +197,7 @@ class MainController {
     this.fixedPriceConfirmationResponse =
       await this.input.getFixedPriceConfirmationInput(
         this.productName,
-        this.adjustmentQuantity
+        this.adjustmentQuantity,
       );
   }
 
