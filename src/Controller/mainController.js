@@ -35,8 +35,8 @@ class MainController {
 
   async ProgramStart() {
     this.initializeTransaction(); // 거래 관련 필드 초기화
-
     this.output.printProductsInPossessionList();
+    
     await this.getProductNamesAndAmount();
 
     this.extractArrProductAndAmount = extractProductNamesAndAmount(

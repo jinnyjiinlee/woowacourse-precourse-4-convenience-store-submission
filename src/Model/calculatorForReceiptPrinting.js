@@ -108,27 +108,6 @@ export class receiptPrinting {
   }
 
   printReceipt(isMembershipApplicationInput) {
-    // 필요한 필드들을 초기화합니다.
-    this.purchasedProductName = null;
-    this.purchasedProductAmount = null;
-    this.purchasedProductPrice = null;
-    this.purchasedProductPriceResult = null;
-
-    this.giftPurchasedProductName = null;
-    this.giftPurchasedProductAmount = null;
-    this.giftPurchasedProductPrice = null;
-
-    this.totalPurchasedProductAmount = 0;
-    this.totalPurchasedProductPrice = 0;
-    this.totalGiftPurchasedProductPrice = 0;
-
-    this.membershipDiscountPrice = 0;
-    this.priceForPay = 0;
-
-    this.purchasedProducts = PRODUCTS.filter(
-      (product) => product.totalReceivedAmount > 0
-    );
-
     this.extractPurchaseProductDetails();
     this.printReceiptHeader();
     this.printPurchasedProductDetails();
@@ -194,4 +173,4 @@ export class receiptPrinting {
   }
 }
 
-new receiptPrinting().printReceipt();
+
