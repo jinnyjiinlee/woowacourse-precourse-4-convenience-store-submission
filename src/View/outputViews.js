@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import { OUTPUT_MESSAGE } from '../Constant/messages.js';
 import { PRODUCTS } from '../Constant/productsCount.js';
 
-export class Output {
+export class OutputView {
   async printProductsInPossessionList() {
     Console.print(OUTPUT_MESSAGE.WELCOME_GREETING);
 

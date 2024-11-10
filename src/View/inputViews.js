@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import { InputMessage } from '../Constant/messages.js';
 import { PurchaseQuantitiesValidator } from '../Validation/purchaseQuantitiesValidator.js';
 
-export class Input {
+export class InputView {
   constructor() {
     this.inputMessage = new InputMessage();
     this.productNamesAndQuantities = null;

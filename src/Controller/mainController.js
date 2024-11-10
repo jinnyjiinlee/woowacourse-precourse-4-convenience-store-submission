@@ -1,15 +1,15 @@
 import { PRODUCTS } from '../Constant/productsCount.js';
 import { CheckGiftOrDiscountStatus } from '../Model/giftOrDiscountStatusChecking.js';
-import { Input } from '../View/inputViews.js';
-import { Output } from '../View/outputViews.js';
+import { InputView } from '../View/inputViews.js';
+import { OutputView } from '../View/outputViews.js';
 import { extractProductNamesAndQuantities } from '../Utils/parsedProductNamesAndQuantities.js';
 import { receiptPrinting } from '../Model/calculatorForReceiptPrinting.js';
 import { isPromotionActive } from '../Model/calculatorForPromotionTime.js';
 
 class MainController {
   constructor() {
-    this.input = new Input();
-    this.output = new Output();
+    this.input = new InputView();
+    this.output = new OutputView();
 
     this.productName = null;
     this.productQuantities = null;
