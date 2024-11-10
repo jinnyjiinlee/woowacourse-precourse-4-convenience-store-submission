@@ -49,12 +49,7 @@ class MainController {
         (product) => product.productName === this.productName
       );
 
-      //재고 총량 구하기
-      this.totalStock =
-        this.targetProduct.regularStock + this.targetProduct.promotionStock;
-
       // 프로모션 적용 여부 확인 (프로모션 갯수 나오는 변수)
-
       this.eligiblePromotionProduct = this.targetProduct.promotionStock;
 
       // 프로모션 상품이 아니라면?
