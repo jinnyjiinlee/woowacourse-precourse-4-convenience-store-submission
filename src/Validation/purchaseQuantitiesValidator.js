@@ -20,9 +20,11 @@ export class PurchaseQuantitiesValidator {
     for (let i = 0; i < this.parsedProductDetails.length; i += 1) {
       this.productName = this.parsedProductDetails[i][0];
       this.productQuantity = Number(this.parsedProductDetails[i][1]);
-      this.validateProductItem();
-
       this.findProductName();
+
+      this.validateProductItem();
+      this.validateAvailableProduct();
+
       this.calculateAvailableStock();
       this.printErrorMessageForNoStock();
     }
@@ -43,7 +45,7 @@ export class PurchaseQuantitiesValidator {
     const koreanRex = /^[가-힣]+$/;
     if (!koreanRex.test(this.productName)) {
       throw new Error(
-        '\n[ERROR] 유효하지 않은 상품 이름입니다. 다시 입력해 주세요.',
+        '\n[ERROR] 올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요.',
       );
     }
   }
@@ -55,7 +57,16 @@ export class PurchaseQuantitiesValidator {
       !Number.isInteger(this.productQuantity)
     ) {
       throw new Error(
-        '\n[ERROR] 유효하지 않은 상품 개수입니다. 다시 입력해 주세요.',
+        '\n[ERROR] 올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요.',
+      );
+    }
+  }
+
+  // 존재하지 않은 상품일 떄
+  validateAvailableProduct() {
+    if (!this.targetProduct) {
+      throw new Error(
+        '\n[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요.',
       );
     }
   }
