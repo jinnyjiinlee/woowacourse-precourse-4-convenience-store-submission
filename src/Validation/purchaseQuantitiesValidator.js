@@ -4,7 +4,7 @@ import { extractProductNamesAndQuantities } from '../Utils/parsedProductNamesAnd
 export class PurchaseQuantitiesValidator {
   constructor() {
     this.productName = 0;
-    this.productQuantities = 0;
+    this.productQuantity = 0;
     this.totalStock = 0;
     this.targetProduct = null;
   }
@@ -16,7 +16,7 @@ export class PurchaseQuantitiesValidator {
 
     for (let i = 0; i < extractArrProductAndQuantities.length; i += 1) {
       this.productName = extractArrProductAndQuantities[i][0];
-      this.productQuantities = Number(extractArrProductAndQuantities[i][1]);
+      this.productQuantity = Number(extractArrProductAndQuantities[i][1]);
 
       this.targetProduct = PRODUCTS.find(
         (product) => product.productName === this.productName
@@ -27,7 +27,7 @@ export class PurchaseQuantitiesValidator {
         (this.targetProduct.regularStock ?? 0) +
         (this.targetProduct.promotionStock ?? 0);
 
-      if (this.productQuantities > this.totalStock) {
+      if (this.productQuantity > this.totalStock) {
         throw new Error(
           '[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.'
         );
