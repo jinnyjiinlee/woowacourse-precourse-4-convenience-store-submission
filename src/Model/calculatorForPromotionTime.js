@@ -1,11 +1,17 @@
-import { Console, DateTimes } from '@woowacourse/mission-utils';
-
+import { DateTimes } from '@woowacourse/mission-utils';
 import fs from 'fs';
+import path from 'path';
 
+// 프로모션 데이터 읽어오기 (절대 경로)
 const promotionDateRawData = fs.readFileSync(
-  '/Users/jinny/Desktop/WOOWA_PRECOURSE/javascript-convenience-store-7-jinnyjiinlee/public/promotions.md',
+  path.resolve('public/promotions.md'),
   'utf8'
-);
+); 
+
+// const promotionDateRawData = fs.readFileSync(
+//   '/Users/jinny/Desktop/WOOWA_PRECOURSE/javascript-convenience-store-7-jinnyjiinlee/public/promotions.md',
+//   'utf8'
+// );
 
 const promotionDataLines = promotionDateRawData.split('\n');
 

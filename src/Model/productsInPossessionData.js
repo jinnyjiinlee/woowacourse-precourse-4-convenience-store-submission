@@ -1,4 +1,6 @@
 import fs from 'fs';
+import path from 'path';
+
 
 export class ParedProductsData {
   constructor() {
@@ -16,9 +18,9 @@ export class ParedProductsData {
     return this.rawProductsList;
   };
 
+  // 절대 경로를 상대평가로 바꾸기 
   readProductsRawData = () => {
-    this.productsRawData = fs.readFileSync(
-      '/Users/jinny/Desktop/WOOWA_PRECOURSE/javascript-convenience-store-7-jinnyjiinlee/public/products.md',
+    this.productsRawData = fs.readFileSync(path.resolve('public/products.md'),
       'utf8'
     );
   };

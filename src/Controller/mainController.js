@@ -3,7 +3,7 @@ import { CheckGiftOrDiscountStatus } from '../Model/giftOrDiscountStatusChecking
 import { InputView } from '../View/inputViews.js';
 import { OutputView } from '../View/outputViews.js';
 import { extractProductNamesAndQuantities } from '../Utils/parsedProductNamesAndQuantities.js';
-import { receiptPrinting } from '../Model/calculatorForReceiptPrinting.js';
+import { ReceiptPrinting } from '../Model/calculatorForReceiptPrinting.js';
 import { isPromotionActive } from '../Model/calculatorForPromotionTime.js';
 
 class MainController {
@@ -22,7 +22,7 @@ class MainController {
     this.targetProduct = null;
     this.additionalPurchaseResponse = null;
 
-    this.receiptPrinter = new receiptPrinting();
+    this.receiptPrinter = new ReceiptPrinting();
   }
 
   async ProgramStart() {
@@ -153,7 +153,7 @@ class MainController {
     }
     await this.getIsMembershipApplicationInput();
 
-    new receiptPrinting().printReceipt(this.isMembershipApplicationInput);
+    new ReceiptPrinting().printReceipt(this.isMembershipApplicationInput);
 
     await this.getIsAdditionalPurchaseInput();
 

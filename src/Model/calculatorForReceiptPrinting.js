@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { PRODUCTS } from '../Constant/productsCount.js';
 
-export class receiptPrinting {
+export class ReceiptPrinting {
   constructor() {
     this.purchasedProductName = null;
     this.purchasedProductQuantities = null;
