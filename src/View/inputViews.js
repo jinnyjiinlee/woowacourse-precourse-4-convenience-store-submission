@@ -1,26 +1,28 @@
 import { Console } from '@woowacourse/mission-utils';
 import { InputMessage } from '../Constant/messages.js';
-import { PurchaseAmountValidator } from '../Validation/purchaseAmountValidator.js';
+import { PurchaseQuantitiesValidator } from '../Validation/purchaseQuantitiesValidator.js';
 
 export class Input {
   constructor() {
     this.inputMessage = new InputMessage();
-    this.productNamesAndAmount = null;
+    this.productNamesAndQuantities = null;
     this.isPromotionProductsInput = null;
     this.isFixedPricePurchaseInput = null;
     this.isMembershipApplicationInput = null;
     this.isAdditionalPurchaseInput = null;
   }
 
-  async getProductNamesAndAmountInput() {
+  async getProductNamesAndQuantitiesInput() {
     while (true) {
       try {
-        this.productNamesAndAmount = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.PRODUCT_NAMES_AND_AMOUNT
+        this.productNamesAndQuantities = await Console.readLineAsync(
+          this.inputMessage.INPUT_MESSAGE.PRODUCT_NAMES_AND_Quantities
         );
-        new PurchaseAmountValidator().hasSufficientStock(this.productNamesAndAmount);
-        
-        return this.productNamesAndAmount;
+        new PurchaseQuantitiesValidator().hasSufficientStock(
+          this.productNamesAndQuantities
+        );
+
+        return this.productNamesAndQuantities;
       } catch (e) {
         Console.print(e.message);
       }
@@ -41,13 +43,13 @@ export class Input {
     }
   }
 
-  async getFixedPriceConfirmationInput(productName, AdjustmentAmount) {
+  async getFixedPriceConfirmationInput(productName, AdjustmentQuantities) {
     while (true) {
       try {
         this.isFixedPricePurchaseInput = await Console.readLineAsync(
           this.inputMessage.INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE(
             productName,
-            AdjustmentAmount
+            AdjustmentQuantities
           )
         );
         // TODO: 유효성 검사 파일 추후 삽입

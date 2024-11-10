@@ -10,8 +10,8 @@ const PRODUCTS = [
     regularStock: 10,
     promotionStock: 10,
     promotionType: '탄산2+1',
-    totalReceivedAmount: 0,
-    receivedGiftAmount: 0,
+    totalReceivedQuantities: 0,
+    receivedGiftQuantities: 0,
   }, // 콜라 - 2+1
   {
     productName: rawProductList[2][0],
@@ -19,8 +19,8 @@ const PRODUCTS = [
     regularStock: 7,
     promotionStock: 8,
     promotionType: '탄산2+1',
-    totalReceivedAmount: 0,
-    receivedGiftAmount: 0,
+    totalReceivedQuantities: 0,
+    receivedGiftQuantities: 0,
   }, // 사이다 - 2+1
   {
     productName: rawProductList[4][0],
@@ -28,8 +28,8 @@ const PRODUCTS = [
     regularStock: 0,
     promotionStock: 9,
     promotionType: 'MD추천상품',
-    totalReceivedAmount: 0,
-    receivedGiftAmount: 0,
+    totalReceivedQuantities: 0,
+    receivedGiftQuantities: 0,
   }, // 오렌지주스 = 1+1
   {
     productName: rawProductList[5][0],
@@ -37,8 +37,8 @@ const PRODUCTS = [
     regularStock: 0,
     promotionStock: 5,
     promotionType: '탄산2+1',
-    totalReceivedAmount: 0,
-    receivedGiftAmount: 0,
+    totalReceivedQuantities: 0,
+    receivedGiftQuantities: 0,
   }, // 탄산수 - 2+1
   {
     productName: rawProductList[6][0],
@@ -46,8 +46,8 @@ const PRODUCTS = [
     regularStock: 10,
     promotionStock: null,
     promotionType: null,
-    totalReceivedAmount: 0,
-    receivedGiftAmount: 0,
+    totalReceivedQuantities: 0,
+    receivedGiftQuantities: 0,
   }, // 물
   {
     productName: rawProductList[7][0],
@@ -55,8 +55,8 @@ const PRODUCTS = [
     regularStock: 6,
     promotionStock: null,
     promotionType: null,
-    totalReceivedAmount: 0,
-    receivedGiftAmount: 0,
+    totalReceivedQuantities: 0,
+    receivedGiftQuantities: 0,
   }, // 비타민워터
   {
     productName: rawProductList[8][0],
@@ -64,8 +64,8 @@ const PRODUCTS = [
     regularStock: 5,
     promotionStock: 5,
     promotionType: '반짝할인',
-    totalReceivedAmount: 0,
-    receivedGiftAmount: 0,
+    totalReceivedQuantities: 0,
+    receivedGiftQuantities: 0,
   }, // 감자칩 1+1
   {
     productName: rawProductList[10][0],
@@ -73,8 +73,8 @@ const PRODUCTS = [
     regularStock: 5,
     promotionStock: 5,
     promotionType: 'MD추천상품',
-    totalReceivedAmount: 0,
-    receivedGiftAmount: 0,
+    totalReceivedQuantities: 0,
+    receivedGiftQuantities: 0,
   }, //초코바 1+1
   {
     productName: rawProductList[12][0],
@@ -82,8 +82,8 @@ const PRODUCTS = [
     regularStock: 5,
     promotionStock: null,
     promotionType: null,
-    totalReceivedAmount: 0,
-    receivedGiftAmount: 0,
+    totalReceivedQuantities: 0,
+    receivedGiftQuantities: 0,
   }, // 에너지바
   {
     productName: rawProductList[13][0],
@@ -91,8 +91,8 @@ const PRODUCTS = [
     regularStock: 8,
     promotionStock: null,
     promotionType: null,
-    totalReceivedAmount: 0,
-    receivedGiftAmount: 0,
+    totalReceivedQuantities: 0,
+    receivedGiftQuantities: 0,
   }, // 정식도시락
   {
     productName: rawProductList[14][0],
@@ -100,8 +100,8 @@ const PRODUCTS = [
     regularStock: 10,
     promotionStock: 1,
     promotionType: 'MD추천상품',
-    totalReceivedAmount: 0,
-    receivedGiftAmount: 0,
+    totalReceivedQuantities: 0,
+    receivedGiftQuantities: 0,
   }, //컵라면 1+1
 ];
 
@@ -114,7 +114,7 @@ const RECEIPT_TEXT = {
 
   WORD: {
     PRODUCT_NAME: '상풍명',
-    PRODUCT_AMOUNT: '수량',
+    PRODUCT_Quantities: '수량',
     PRODUCT_PRICE: '금액',
     TOTAL_PURCHASE_PRICE: '총구매액',
     EVENT_DISCOUNT: '행사할인',

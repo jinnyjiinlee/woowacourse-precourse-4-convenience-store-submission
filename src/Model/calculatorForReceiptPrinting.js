@@ -4,15 +4,15 @@ import { PRODUCTS } from '../Constant/productsCount.js';
 export class receiptPrinting {
   constructor() {
     this.purchasedProductName = null;
-    this.purchasedProductAmount = null;
+    this.purchasedProductQuantities = null;
     this.purchasedProductPrice = null;
     this.purchasedProductPriceResult = null;
 
     this.giftPurchasedProductName = null;
-    this.giftPurchasedProductAmount = null;
+    this.giftPurchasedProductQuantities = null;
     this.giftPurchasedProductPrice = null;
 
-    this.totalPurchasedProductAmount = 0;
+    this.totalPurchasedProductQuantities = 0;
     this.totalPurchasedProductPrice = 0;
     this.totalGiftPurchasedProductPrice = 0;
 
@@ -20,7 +20,7 @@ export class receiptPrinting {
     this.priceForPay = 0;
 
     this.purchasedProducts = PRODUCTS.filter(
-      (product) => product.totalReceivedAmount > 0
+      (product) => product.totalReceivedQuantities > 0
     );
   }
 
@@ -29,8 +29,8 @@ export class receiptPrinting {
       (product) => product.productName
     );
 
-    this.purchasedProductAmount = this.purchasedProducts.map(
-      (product) => product.totalReceivedAmount
+    this.purchasedProductQuantities = this.purchasedProducts.map(
+      (product) => product.totalReceivedQuantities
     );
 
     this.purchasedProductPrice = this.purchasedProducts.map(
@@ -40,15 +40,15 @@ export class receiptPrinting {
 
   extractGiftPurchaseProductDetails() {
     this.giftPurchasedProductName = PRODUCTS.filter(
-      (product) => product.receivedGiftAmount > 0
+      (product) => product.receivedGiftQuantities > 0
     ).map((product) => product.productName);
 
-    this.giftPurchasedProductAmount = PRODUCTS.filter(
-      (product) => product.receivedGiftAmount > 0
-    ).map((product) => product.receivedGiftAmount);
+    this.giftPurchasedProductQuantities = PRODUCTS.filter(
+      (product) => product.receivedGiftQuantities > 0
+    ).map((product) => product.receivedGiftQuantities);
 
     this.giftPurchasedProductPrice = PRODUCTS.filter(
-      (product) => product.receivedGiftAmount > 0
+      (product) => product.receivedGiftQuantities > 0
     ).map((product) => product.price);
   }
 
@@ -60,17 +60,18 @@ export class receiptPrinting {
   printPurchasedProductDetails() {
     for (let i = 0; i < this.purchasedProductName.length; i += 1) {
       this.purchasedProductPriceResult =
-        this.purchasedProductAmount[i] * this.purchasedProductPrice[i];
+        this.purchasedProductQuantities[i] * this.purchasedProductPrice[i];
 
       this.totalPurchasedProductPrice += this.purchasedProductPriceResult;
-      this.totalPurchasedProductAmount += this.purchasedProductAmount[i];
+      this.totalPurchasedProductQuantities +=
+        this.purchasedProductQuantities[i];
 
       // console.log('purchasedProductName: ', this.purchasedProductName);
 
       // TODO: 'ㅡ'을 빈칸으로 만들어도 정렬되게 하기
       Console.print(
         `${this.purchasedProductName[i].padEnd(10, 'ㅡ')} ${String(
-          this.purchasedProductAmount[i]
+          this.purchasedProductQuantities[i]
         ).padEnd(5, ' ')}  ${String(
           this.purchasedProductPriceResult.toLocaleString()
         ).padStart(10, ' ')}`
@@ -81,25 +82,26 @@ export class receiptPrinting {
   calculateTotalGiftProductPrice() {
     for (let i = 0; i < this.giftPurchasedProductName.length; i += 1) {
       this.totalGiftPurchasedProductPrice +=
-        this.giftPurchasedProductAmount[i] * this.giftPurchasedProductPrice[i];
+        this.giftPurchasedProductQuantities[i] *
+        this.giftPurchasedProductPrice[i];
     }
   }
 
   // 프로모션 상품, 개수
-  printGiftProductNameAndAmount() {
+  printGiftProductNameAndQuantities() {
     for (let i = 0; i < this.giftPurchasedProductName.length; i += 1) {
       Console.print(
         `${this.giftPurchasedProductName[i].padEnd(10, 'ㅡ')} ${String(
-          this.giftPurchasedProductAmount[i]
+          this.giftPurchasedProductQuantities[i]
         ).padEnd(1, ' ')}`
       );
     }
   }
 
   // 총 수량, 총 금액
-  printTotalPurchaseAmount() {
+  printTotalPurchaseQuantities() {
     Console.print(
-      `총구매액 ${String(this.totalPurchasedProductAmount).padStart(
+      `총구매액 ${String(this.totalPurchasedProductQuantities).padStart(
         13
       )} ${String(this.totalPurchasedProductPrice.toLocaleString()).padStart(
         14
@@ -116,10 +118,10 @@ export class receiptPrinting {
     this.calculateTotalGiftProductPrice();
 
     Console.print('\n' + '=============증      정===============');
-    this.printGiftProductNameAndAmount();
+    this.printGiftProductNameAndQuantities();
 
     Console.print('\n' + '=====================================');
-    this.printTotalPurchaseAmount();
+    this.printTotalPurchaseQuantities();
 
     // 맴버십 함수 실행
     if (isMembershipApplicationInput === 'Y') {
@@ -172,5 +174,3 @@ export class receiptPrinting {
       this.membershipDiscountPrice;
   }
 }
-
-

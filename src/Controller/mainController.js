@@ -2,7 +2,7 @@ import { PRODUCTS } from '../Constant/productsCount.js';
 import { CheckGiftOrDiscountStatus } from '../Model/giftOrDiscountStatusChecking.js';
 import { Input } from '../View/inputViews.js';
 import { Output } from '../View/outputViews.js';
-import { extractProductNamesAndAmount } from '../Utils/parsedProductNamesAndAmount.js';
+import { extractProductNamesAndQuantities } from '../Utils/parsedProductNamesAndQuantities.js';
 import { receiptPrinting } from '../Model/calculatorForReceiptPrinting.js';
 import { isPromotionActive } from '../Model/calculatorForPromotionTime.js';
 
@@ -12,9 +12,9 @@ class MainController {
     this.output = new Output();
 
     this.productName = null;
-    this.productAmount = null;
+    this.productQuantities = null;
 
-    this.selectedProductNamesAndAmount = null;
+    this.getProductNamesAndQuantitiesInput = null;
     this.addGiftConfirmationResponse = null;
     this.isMembershipApplicationInput = null;
     this.isAdditionalPurchaseInput = null;
@@ -29,15 +29,17 @@ class MainController {
     this.initializeTransaction(); // 거래 관련 필드 초기화
     this.output.printProductsInPossessionList();
 
-    await this.getProductNamesAndAmount();
+    await this.getProductNamesAndQuantities();
 
-    this.extractArrProductAndAmount = extractProductNamesAndAmount(
-      this.selectedProductNamesAndAmount
+    this.extractArrProductAndQuantities = extractProductNamesAndQuantities(
+      this.getProductNamesAndQuantitiesInput
     );
 
-    for (let i = 0; i < this.extractArrProductAndAmount.length; i += 1) {
-      this.productName = this.extractArrProductAndAmount[i][0];
-      this.productAmount = Number(this.extractArrProductAndAmount[i][1]);
+    for (let i = 0; i < this.extractArrProductAndQuantities.length; i += 1) {
+      this.productName = this.extractArrProductAndQuantities[i][0];
+      this.productQuantities = Number(
+        this.extractArrProductAndQuantities[i][1]
+      );
 
       this.targetProduct = PRODUCTS.find(
         (product) => product.productName === this.productName
@@ -54,9 +56,9 @@ class MainController {
 
         this.matchingRegularStock = this.targetProduct.regularStock;
 
-        this.matchingRegularStock -= this.productAmount;
+        this.matchingRegularStock -= this.productQuantities;
 
-        this.targetProduct.totalReceivedAmount = this.productAmount;
+        this.targetProduct.totalReceivedQuantities = this.productQuantities;
 
         // 일반 재고가 0 이하가 되면 '재고 없음'으로 표시
         if (this.targetProduct.regularStock <= 0) {
@@ -66,34 +68,38 @@ class MainController {
 
       // 프로모션 상품이 맞다면?
       if (this.eligiblePromotionProduct) {
-        this.promotionStatusAndAdjustmentAmount =
+        this.promotionStatusAndAdjustmentQuantities =
           new CheckGiftOrDiscountStatus().checkGiftOrDiscountStatus(
             this.productName,
-            this.productAmount
+            this.productQuantities
           );
 
-        this.promotionStatus = this.promotionStatusAndAdjustmentAmount[0];
-        this.AdjustmentAmount = this.promotionStatusAndAdjustmentAmount[1];
+        this.promotionStatus = this.promotionStatusAndAdjustmentQuantities[0];
+        this.AdjustmentQuantities =
+          this.promotionStatusAndAdjustmentQuantities[1];
 
-        if (this.promotionStatus === '증정' && this.AdjustmentAmount > 0) {
+        if (this.promotionStatus === '증정' && this.AdjustmentQuantities > 0) {
           await this.getAddGiftConfirmationInput();
         }
 
         if (this.addGiftConfirmationResponse === 'Y') {
-          // Y의 의미 프로모션 상품을 this.AdjustmentAmount 만큼 더 받겠다!
-          this.productAmount += this.AdjustmentAmount;
+          // Y의 의미 프로모션 상품을 this.AdjustmentQuantities 만큼 더 받겠다!
+          this.productQuantities += this.AdjustmentQuantities;
         }
 
-        if (this.promotionStatus === '적용안됨' && this.AdjustmentAmount > 0) {
+        if (
+          this.promotionStatus === '적용안됨' &&
+          this.AdjustmentQuantities > 0
+        ) {
           await this.getFixedPriceConfirmationInput();
         }
 
         if (this.fixedPriceConfirmationResponse === 'N') {
-          // N의 의미: 프로모션 적용 안되는 상품은 this.AdjustmentAmount 만큼 구매를 취소하겠다.
-          this.productAmount -= this.AdjustmentAmount;
+          // N의 의미: 프로모션 적용 안되는 상품은 this.AdjustmentQuantities 만큼 구매를 취소하겠다.
+          this.productQuantities -= this.AdjustmentQuantities;
         }
 
-        this.targetProduct.totalReceivedAmount = this.productAmount;
+        this.targetProduct.totalReceivedQuantities = this.productQuantities;
 
         //  1+1일때
         if (
@@ -102,8 +108,8 @@ class MainController {
           this.productName === '초코바' ||
           this.productName === '컵라면'
         ) {
-          this.targetProduct.receivedGiftAmount = Math.floor(
-            this.productAmount / 2
+          this.targetProduct.receivedGiftQuantities = Math.floor(
+            this.productQuantities / 2
           );
         }
 
@@ -113,15 +119,15 @@ class MainController {
           this.productName === '사이다' ||
           this.productName === '탄산수'
         ) {
-          this.targetProduct.receivedGiftAmount = Math.floor(
-            this.targetProduct.totalReceivedAmount / 3
+          this.targetProduct.receivedGiftQuantities = Math.floor(
+            this.targetProduct.totalReceivedQuantities / 3
           );
         }
 
         // updateProductStock
         if (this.targetProduct.promotionStock) {
           // 프로모션 재고가 충분한 경우, 요청된 수량만큼 프로모션 재고에서 차감
-          this.targetProduct.promotionStock -= this.productAmount;
+          this.targetProduct.promotionStock -= this.productQuantities;
 
           // 프로모션 재고가 0이 되면 '재고 없음'으로 표시
           if (this.targetProduct.promotionStock <= 0) {
@@ -129,14 +135,14 @@ class MainController {
           }
         } else {
           // 프로모션 재고가 부족한 경우
-          this.remainingAmount =
-            this.productAmount - this.targetProduct.promotionStock;
+          this.remainingQuantities =
+            this.productQuantities - this.targetProduct.promotionStock;
 
           // 프로모션 재고를 모두 소진하고 '재고 없음'으로 표시
           this.targetProduct.promotionStock = '재고 없음';
 
           // 남은 수량만큼 일반 재고에서 차감
-          this.targetProduct.regularStock -= this.remainingAmount;
+          this.targetProduct.regularStock -= this.remainingQuantities;
 
           // 일반 재고가 0 이하가 되면 '재고 없음'으로 표시
           if (this.targetProduct.regularStock <= 0) {
@@ -158,14 +164,14 @@ class MainController {
 
   initializeTransaction() {
     PRODUCTS.forEach((product) => {
-      product.totalReceivedAmount = 0; // 받은 총량 초기화
-      product.receivedGiftAmount = 0; // 받은 증정품 초기화
+      product.totalReceivedQuantities = 0; // 받은 총량 초기화
+      product.receivedGiftQuantities = 0; // 받은 증정품 초기화
     });
   }
 
-  async getProductNamesAndAmount() {
-    this.selectedProductNamesAndAmount =
-      await this.input.getProductNamesAndAmountInput();
+  async getProductNamesAndQuantities() {
+    this.getProductNamesAndQuantitiesInput =
+      await this.input.getProductNamesAndQuantitiesInput();
   }
 
   async getAddGiftConfirmationInput() {
@@ -177,7 +183,7 @@ class MainController {
     this.fixedPriceConfirmationResponse =
       await this.input.getFixedPriceConfirmationInput(
         this.productName,
-        this.AdjustmentAmount
+        this.AdjustmentQuantities
       );
   }
 

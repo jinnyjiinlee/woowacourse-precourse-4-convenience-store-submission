@@ -8,10 +8,7 @@ export class Output {
 
     PRODUCTS.forEach((product) => {
       this.product = product;
-      // 프로모션 재고 확인 - 출력
       this.promotionStockChecking();
-
-      // 일반 재고 출력
       this.regularStockChecking();
     });
   }

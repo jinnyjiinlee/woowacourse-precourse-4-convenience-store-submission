@@ -1,24 +1,24 @@
 import { PRODUCTS } from '../Constant/productsCount.js';
-import { extractProductNamesAndAmount } from '../Utils/parsedProductNamesAndAmount.js';
+import { extractProductNamesAndQuantities } from '../Utils/parsedProductNamesAndQuantities.js';
 
-export class PurchaseAmountValidator {
+export class PurchaseQuantitiesValidator {
   constructor() {
     this.productName = 0;
-    this.productAmount = 0;
+    this.productQuantities = 0;
     this.totalStock = 0;
     this.targetProduct = null;
   }
 
-  hasSufficientStock(productNamesAndAmount) {
-    const extractArrProductAndAmount = extractProductNamesAndAmount(
-      productNamesAndAmount
+  hasSufficientStock(productNamesAndQuantities) {
+    const extractArrProductAndQuantities = extractProductNamesAndQuantities(
+      productNamesAndQuantities
     );
 
-    // console.log('extractArrProductAndAmount: ', extractArrProductAndAmount);
+    // console.log('extractArrProductAndQuantities: ', extractArrProductAndQuantities);
 
-    for (let i = 0; i < extractArrProductAndAmount.length; i += 1) {
-      this.productName = extractArrProductAndAmount[i][0];
-      this.productAmount = Number(extractArrProductAndAmount[i][1]);
+    for (let i = 0; i < extractArrProductAndQuantities.length; i += 1) {
+      this.productName = extractArrProductAndQuantities[i][0];
+      this.productQuantities = Number(extractArrProductAndQuantities[i][1]);
 
       this.targetProduct = PRODUCTS.find(
         (product) => product.productName === this.productName
@@ -39,7 +39,7 @@ export class PurchaseAmountValidator {
       // );
       // console.log('this.totalStock: ', this.totalStock);
 
-      if (this.productAmount > this.totalStock) {
+      if (this.productQuantities > this.totalStock) {
         throw new Error(
           '[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.'
         );
