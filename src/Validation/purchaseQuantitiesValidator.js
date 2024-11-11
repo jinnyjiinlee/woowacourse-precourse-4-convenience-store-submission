@@ -1,5 +1,5 @@
 import { PRODUCTS } from '../Constant/productList.js';
-import { parseProductDetails } from '../Utils/parsedProductNamesAndQuantities.js';
+import { parseProductDetails } from '../Utils/parseProductsDetails.js';
 
 export class PurchaseQuantitiesValidator {
   constructor() {

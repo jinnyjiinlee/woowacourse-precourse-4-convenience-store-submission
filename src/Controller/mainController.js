@@ -2,7 +2,7 @@ import { PRODUCTS } from '../Constant/productList.js';
 import { CheckGiftOrDiscountStatus } from '../Model/giftOrDiscountStatusChecking.js';
 import { InputView } from '../View/inputViews.js';
 import { OutputView } from '../View/outputViews.js';
-import { parseProductDetails } from '../Utils/parsedProductNamesAndQuantities.js';
+import { parseProductDetails } from '../Utils/parseProductsDetails.js';
 import { ReceiptPrinting } from '../Model/calculatorForReceiptPrinting.js';
 import { PromotionActiveChecking } from '../Model/calculatorForPromotionTime.js';
 

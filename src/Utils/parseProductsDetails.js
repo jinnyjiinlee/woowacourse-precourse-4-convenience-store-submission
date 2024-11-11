@@ -1,5 +1,5 @@
-export const parseProductDetails = (productNamesAndQuantities) => {
-  const splitEachProduct = productNamesAndQuantities.split(',');
+export const parseProductDetails = (productsDetails) => {
+  const splitEachProduct = productsDetails.split(',');
   const totalProductNameAndQuantities = [];
 
   for (let i = 0; i < splitEachProduct.length; i += 1) {
