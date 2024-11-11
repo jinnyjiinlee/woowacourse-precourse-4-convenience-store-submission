@@ -1,13 +1,16 @@
 import { Console } from '@woowacourse/mission-utils';
 import { InputMessage } from '../Constant/messages.js';
 import { PurchaseQuantitiesValidator } from '../Validation/purchaseQuantitiesValidator.js';
+import { GiftConfirmationValidator } from '../Validation/validateGiftConfirmation.js';
 
 export class InputView {
   constructor() {
     this.inputMessage = new InputMessage();
-    
+
+    this.giftConfirmationValidator = new GiftConfirmationValidator();
+
     this.productNamesAndQuantities = null;
-    this.isPromotionProductsInput = null;
+    this.gitConfirmation = null;
     this.isFixedPricePurchaseInput = null;
     this.isMembershipApplicationInput = null;
     this.isAdditionalPurchaseInput = null;
@@ -17,10 +20,10 @@ export class InputView {
     while (true) {
       try {
         this.productNamesAndQuantities = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.PRODUCT_NAMES_AND_Quantities
+          this.inputMessage.INPUT_MESSAGE.PRODUCT_NAMES_AND_Quantities,
         );
         new PurchaseQuantitiesValidator().validateProductDetails(
-          this.productNamesAndQuantities
+          this.productNamesAndQuantities,
         );
 
         return this.productNamesAndQuantities;
@@ -33,11 +36,11 @@ export class InputView {
   async getAddGiftConfirmationInput(productName) {
     while (true) {
       try {
-        this.isPromotionProductsInput = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.IS_VALID_PROMOTION_ADD(productName)
+        this.gitConfirmation = await Console.readLineAsync(
+          this.inputMessage.INPUT_MESSAGE.IS_VALID_PROMOTION_ADD(productName),
         );
-        // TODO: 유효성 검사 파일 추후 삽입
-        return this.isPromotionProductsInput;
+        this.validateGiftConfirmation(this.gitConfirmation);
+        return this.gitConfirmation;
       } catch (e) {
         Console.print(e.message);
       }
@@ -50,8 +53,8 @@ export class InputView {
         this.isFixedPricePurchaseInput = await Console.readLineAsync(
           this.inputMessage.INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE(
             productName,
-            AdjustmentQuantities
-          )
+            AdjustmentQuantities,
+          ),
         );
         // TODO: 유효성 검사 파일 추후 삽입
         return this.isFixedPricePurchaseInput;
@@ -65,7 +68,7 @@ export class InputView {
     while (true) {
       try {
         this.isMembershipApplicationInput = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.IS_MEMBERSHIP_APPLICATION
+          this.inputMessage.INPUT_MESSAGE.IS_MEMBERSHIP_APPLICATION,
         );
         // TODO: 유효성 검사 파일 추후 삽입
         return this.isMembershipApplicationInput;
@@ -79,7 +82,7 @@ export class InputView {
     while (true) {
       try {
         this.isAdditionalPurchaseInput = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.IS_ADDITIONAL_PURCHASE
+          this.inputMessage.INPUT_MESSAGE.IS_ADDITIONAL_PURCHASE,
         );
         // TODO: 유효성 검사 파일 추후 삽입
         return this.isAdditionalPurchaseInput;
@@ -87,5 +90,11 @@ export class InputView {
         Console.print(e.message);
       }
     }
+  }
+
+  validateGiftConfirmation() {
+    this.giftConfirmationValidator.validateGiftConfirmation(
+      this.gitConfirmation,
+    );
   }
 }
