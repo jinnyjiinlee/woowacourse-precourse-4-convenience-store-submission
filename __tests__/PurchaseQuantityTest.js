@@ -1,4 +1,4 @@
-import { PRODUCTS } from '../src/Constant/productsCount.js';
+import { PRODUCTS } from '../src/Constant/productList.js';
 import { PurchaseQuantitiesValidator } from '../src/Validation/purchaseQuantitiesValidator.js';
 
 describe('PurchaseQuantitiesValidator', () => {

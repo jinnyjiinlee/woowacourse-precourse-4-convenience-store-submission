@@ -116,22 +116,4 @@ const PRODUCTS = [
   }, //컵라면 1+1
 ];
 
-const RECEIPT_TEXT = {
-  LINE: {
-    RECEIPT_HEADER_LINE: '==============W 편의점================',
-    GIFT_DIVIDING_LINE: '=============증	   정===============',
-    RECEIPT_FOOTER_LINE: '====================================',
-  },
-
-  WORD: {
-    PRODUCT_NAME: '상풍명',
-    PRODUCT_Quantities: '수량',
-    PRODUCT_PRICE: '금액',
-    TOTAL_PURCHASE_PRICE: '총구매액',
-    EVENT_DISCOUNT: '행사할인',
-    MEMBERSHIP_DISCOUNT: '맴버십할인',
-    PRICE_TO_PAY: '내실돈',
-  },
-};
-
-export { PRODUCTS, RECEIPT_TEXT };
+export { PRODUCTS };

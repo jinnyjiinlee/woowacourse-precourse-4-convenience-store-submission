@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { PRODUCTS } from '../Constant/productsCount.js';
+import { PRODUCTS } from '../Constant/productList.js';
 
 export class ReceiptPrinting {
   constructor() {
@@ -20,35 +20,35 @@ export class ReceiptPrinting {
     this.priceForPay = 0;
 
     this.purchasedProducts = PRODUCTS.filter(
-      (product) => product.totalReceivedQuantities > 0
+      (product) => product.totalReceivedQuantities > 0,
     );
   }
 
   extractPurchaseProductDetails() {
     this.purchasedProductName = this.purchasedProducts.map(
-      (product) => product.productName
+      (product) => product.productName,
     );
 
     this.purchasedProductQuantities = this.purchasedProducts.map(
-      (product) => product.totalReceivedQuantities
+      (product) => product.totalReceivedQuantities,
     );
 
     this.purchasedProductPrice = this.purchasedProducts.map(
-      (product) => product.price
+      (product) => product.price,
     );
   }
 
   extractGiftPurchaseProductDetails() {
     this.giftPurchasedProductName = PRODUCTS.filter(
-      (product) => product.receivedGiftQuantities > 0
+      (product) => product.receivedGiftQuantities > 0,
     ).map((product) => product.productName);
 
     this.giftPurchasedProductQuantities = PRODUCTS.filter(
-      (product) => product.receivedGiftQuantities > 0
+      (product) => product.receivedGiftQuantities > 0,
     ).map((product) => product.receivedGiftQuantities);
 
     this.giftPurchasedProductPrice = PRODUCTS.filter(
-      (product) => product.receivedGiftQuantities > 0
+      (product) => product.receivedGiftQuantities > 0,
     ).map((product) => product.price);
   }
 
@@ -71,10 +71,10 @@ export class ReceiptPrinting {
       // TODO: 'ㅡ'을 빈칸으로 만들어도 정렬되게 하기
       Console.print(
         `${this.purchasedProductName[i].padEnd(10, 'ㅡ')} ${String(
-          this.purchasedProductQuantities[i]
+          this.purchasedProductQuantities[i],
         ).padEnd(5, ' ')}  ${String(
-          this.purchasedProductPriceResult.toLocaleString()
-        ).padStart(10, ' ')}`
+          this.purchasedProductPriceResult.toLocaleString(),
+        ).padStart(10, ' ')}`,
       );
     }
   }
@@ -92,8 +92,8 @@ export class ReceiptPrinting {
     for (let i = 0; i < this.giftPurchasedProductName.length; i += 1) {
       Console.print(
         `${this.giftPurchasedProductName[i].padEnd(10, 'ㅡ')} ${String(
-          this.giftPurchasedProductQuantities[i]
-        ).padEnd(1, ' ')}`
+          this.giftPurchasedProductQuantities[i],
+        ).padEnd(1, ' ')}`,
       );
     }
   }
@@ -102,10 +102,10 @@ export class ReceiptPrinting {
   printTotalPurchaseQuantities() {
     Console.print(
       `총구매액 ${String(this.totalPurchasedProductQuantities).padStart(
-        13
+        13,
       )} ${String(this.totalPurchasedProductPrice.toLocaleString()).padStart(
-        14
-      )}`
+        14,
+      )}`,
     );
   }
 
@@ -134,14 +134,14 @@ export class ReceiptPrinting {
 
     // TODO: 나중에 간격 맞추기
     Console.print(
-      `행사할인                        -${this.totalGiftPurchasedProductPrice.toLocaleString()}`
+      `행사할인                        -${this.totalGiftPurchasedProductPrice.toLocaleString()}`,
     );
     Console.print(
-      `맴버십할인                      -${this.membershipDiscountPrice.toLocaleString()}`
+      `맴버십할인                      -${this.membershipDiscountPrice.toLocaleString()}`,
     );
 
     Console.print(
-      `내실돈                          ${this.priceForPay.toLocaleString()}`
+      `내실돈                          ${this.priceForPay.toLocaleString()}`,
     );
   }
 

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { DateTimes } from '@woowacourse/mission-utils';
-import { PRODUCTS } from '../Constant/productsCount.js';
+import { PRODUCTS } from '../Constant/productList.js';
 
 const promotionDateRawData = fs.readFileSync(
   path.resolve('public/promotions.md'),

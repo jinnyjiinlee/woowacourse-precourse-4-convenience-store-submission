@@ -1,4 +1,4 @@
-import { PRODUCTS } from '../Constant/productsCount.js';
+import { PRODUCTS } from '../Constant/productList.js';
 import { parseProductDetails } from '../Utils/parsedProductNamesAndQuantities.js';
 
 export class PurchaseQuantitiesValidator {

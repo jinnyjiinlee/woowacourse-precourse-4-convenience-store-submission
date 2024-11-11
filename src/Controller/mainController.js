@@ -1,4 +1,4 @@
-import { PRODUCTS } from '../Constant/productsCount.js';
+import { PRODUCTS } from '../Constant/productList.js';
 import { CheckGiftOrDiscountStatus } from '../Model/giftOrDiscountStatusChecking.js';
 import { InputView } from '../View/inputViews.js';
 import { OutputView } from '../View/outputViews.js';
@@ -70,7 +70,6 @@ class MainController {
     ) {
       this.isEligibleForPromotion = true;
     }
-
   }
 
   // 프로모션 상품이 아닐떄,
@@ -92,7 +91,6 @@ class MainController {
 
   async processPromotionProduct() {
     if (this.isEligibleForPromotion) {
-
       await this.applyEligiblePromotions();
     }
   }

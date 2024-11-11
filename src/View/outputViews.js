@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { OUTPUT_MESSAGE } from '../Constant/messages.js';
-import { PRODUCTS } from '../Constant/productsCount.js';
+import { PRODUCTS } from '../Constant/productList.js';
 
 export class OutputView {
   async printProductList() {
@@ -17,7 +17,7 @@ export class OutputView {
     this.promotionChecking();
     this.promotionTypeChecking();
 
-    if(this.promotionStockText !== '') {
+    if (this.promotionStockText !== '') {
       this.promotionStockPrint();
     }
   }
@@ -50,8 +50,11 @@ export class OutputView {
   }
 
   regularStockChecking() {
-    if ((this.product.regularStock !== null) && (this.product.regularStock !== '재고 없음')){
-      //이걸 재고 없음 일때는 재고없음으로 나오게 해야 한다. 
+    if (
+      this.product.regularStock !== null &&
+      this.product.regularStock !== '재고 없음'
+    ) {
+      //이걸 재고 없음 일때는 재고없음으로 나오게 해야 한다.
       this.regularStockText = `${this.product.regularStock}개`;
       if (this.product.regularStock === 0) {
         this.regularStockText = '재고 없음';
