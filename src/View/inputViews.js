@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { InputMessage } from '../Constant/messages.js';
 import { PurchaseQuantitiesValidator } from '../Validation/purchaseQuantitiesValidator.js';
-import { GiftConfirmationValidator } from '../Validation/validateResponse.js';
+import { GiftConfirmationValidator } from '../Validation/confirmationResponseValidator.js';
 
 export class InputView {
   constructor() {
@@ -95,8 +95,6 @@ export class InputView {
   }
 
   validateResponse(response) {
-    this.giftConfirmationValidator.validateResponse(
-      response,
-    );
+    this.giftConfirmationValidator.validateResponse(response);
   }
 }
