@@ -14,18 +14,60 @@
 ## 📂 프로젝트 폴더 구조 및 파일 설명
 
 ```plaintext
-[ ] 추후 작성
+📦src
+ ┣ 📂Constant
+ ┃ ┣ 📜errorMessages.js
+ ┃ ┣ 📜messages.js
+ ┃ ┗ 📜productList.js
+ ┣ 📂Controller
+ ┃ ┗ 📜mainController.js
+ ┣ 📂Model
+ ┃ ┣ 📜calculatorForPromotionTime.js
+ ┃ ┣ 📜calculatorForReceiptPrinting.js
+ ┃ ┣ 📜giftOrDiscountStatusChecking.js
+ ┃ ┗ 📜productsInPossessionData.js
+ ┣ 📂Utils
+ ┃ ┗ 📜parseProductsDetails.js
+ ┣ 📂Validation
+ ┃ ┣ 📜confirmationResponseValidator.js
+ ┃ ┗ 📜purchaseQuantitiesValidator.js
+ ┣ 📂View
+ ┃ ┣ 📜inputViews.js
+ ┃ ┗ 📜outputViews.js
+ ┣ 📜App.js
+ ┗ 📜index.js
 ```
 <br/>
 
+### 📂 Constant 폴더
+- errorMessages.js: 사용자에게 잘못된 입력시 보여줄 오류 메시지를 정의합니다.
+- messages.js: 사용자와의 상호작용에 필요한 일반적인 메시지나 안내 문구를 포함합니다. 
+- productList.js: 상품 목록과 각 상품의 세부 정보를 정의하며, 상품 이름, 가격, 적용 가능한 프로모션 등을 포함합니다.
+
 ### 📂 Controller 폴더
-[ ] 추후 작성
+- mainController.js: 애플리케이션의 메인 컨트롤 역할을 하며, 프로그램의 흐름을 관리합니다. 
 
 ### 📂 Model 폴더
-[ ] 추후 작성
+- calculatorForPromotionTime.js: 특정 상품에 대한 프로모션이 현재 유효한지 판단하는 계산을 수행합니다.
+- calculatorForReceiptPrinting.js: 최종 영수증 세부 사항을 계산하고, 각 항목, 할인, 총 결제 금액 등을 형식에 맞게 정리합니다.
+- giftOrDiscountStatusChecking.js: 상품에 대한 프로모션 및 할인을 확인하여, 사용자가 선택한 옵션에 따라 증정 상품이나 할인을 적용할 수 있는지 판별합니다.
+- productsInPossessionData.js: 사용자가 현재 소유한 상품의 데이터를 관리하며, 구매 시 재고 수량을 업데이트합니다.
+
+### 📂 Utils 폴더
+- parseProductsDetails.js: 사용자가 입력한 상품의 이름과 수량을 추출하여, 후속 처리에 필요한 데이터를 준비하는 기능을 수행합니다.
+
+### 📂 Validation 폴더
+- confirmationResponseValidator.js: 프로모션 혜택을 받을 것인지에 대한 사용자의 응답(Y/N)을 검증하여, 올바른 입력인지 확인합니다.
+- purchaseQuantitiesValidator.js: 사용자가 입력한 구매 수량이 재고와 일치하는지, 그리고 프로모션 요건을 충족하는지 확인하여 유효성을 검사합니다.
 
 ### 📂 View 폴더
-[ ] 추후 작성
+- inputViews.js: 사용자 입력을 관리합니다.
+- outputViews.js: 사용자가 볼 수 있는 화면 출력을 관리합니다.
+
+루트 파일
+
+- App.js: 애플리케이션의 진입점으로, 프로그램을 초기화하고 mainController를 호출하여 주요 프로세스를 시작합니다.
+- index.js: 모든 컴포넌트를 연결하는 메인 스크립트로, App.js를 호출하여 프로그램을 시작하게 합니다.
 
 <br/>
 
