@@ -8,7 +8,7 @@ export const ERROR_MESSAGES = Object.freeze({
     INVALID_INPUT: `${ERROR} 잘못된 입력입니다. 다시 입력해 주세요.`,
   },
 
-  GIFT_CONFIRMATION: {
+  CONFIRMATION: {
     EMPTY_INPUT: `${ERROR} 빈 값을 입력하셨습니다. 다시 입력해 주세요.`,
     CORRECT_INPUT: `${ERROR} 'Y', 'N' 이외에 다른 것을 입력하셨습니다. 다시 입력해 주세요.`,
   },

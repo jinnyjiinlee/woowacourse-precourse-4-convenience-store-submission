@@ -14,9 +14,18 @@ export class CheckGiftOrDiscountStatus {
     this.productName = productName;
     this.productQuantity = productQuantity;
 
+    // console.log('this.productName', this.productName);
+    // console.log('this.productQuantity', this.productQuantity);
+
     this.targetProduct = this.PRODUCTS.find(
       (product) => product.productName === this.productName,
     );
+
+    // console.log(
+    //   'this.targetProduct.promotionStock',
+    //   this.targetProduct.promotionStock,
+    // );
+    // console.log('this.productQuantity', this.productQuantity);
 
     if (this.targetProduct.promotionStock > this.productQuantity) {
       this.applyExtraPromotion();
@@ -64,18 +73,13 @@ export class CheckGiftOrDiscountStatus {
       this.targetProduct.productName === '초코바' ||
       this.targetProduct.productName === '컵라면'
     ) {
-      const promotionsApplied = Math.min(
-        this.targetProduct.promotionStock,
-        this.productQuantity,
-      );
-      const freeItemsGiven = promotionsApplied;
-      this.adjustmentQuantities = this.productQuantity - promotionsApplied;
+      this.firstUnavailableStockCount =
+        this.productQuantity - this.targetProduct.promotionStock;
+      this.secondUnavailableStockCount =
+        (this.productQuantity - this.firstUnavailableStockCount) % 2;
 
-      // 만약 남은 상품이 프로모션으로 처리되지 않은 경우
-      if (this.adjustmentQuantities > 0) {
-        // 프로모션 적용되지 않은 수량에 대해 처리
-        // 이때 adjustmentQuantities는 프로모션 적용되지 않는 유료 구매 수량
-      }
+      this.adjustmentQuantities =
+        this.firstUnavailableStockCount + this.secondUnavailableStockCount;
     }
 
     // 2 + 1
@@ -84,15 +88,13 @@ export class CheckGiftOrDiscountStatus {
       this.targetProduct.productName === '사이다' ||
       this.targetProduct.productName === '탄산수'
     ) {
-      const maxPromotionsPossible = Math.floor(this.productQuantity / 3);
-      const promotionsApplied = Math.min(
-        maxPromotionsPossible,
-        this.targetProduct.promotionStock,
-      );
-      const freeItemsGiven = promotionsApplied;
-      const totalItemsCoveredByPromotion = promotionsApplied * 3;
+      this.firstUnavailableStockCount =
+        this.productQuantity - this.targetProduct.promotionStock;
+      this.secondUnavailableStockCount =
+        (this.productQuantity - this.firstUnavailableStockCount) % 3;
+
       this.adjustmentQuantities =
-        this.productQuantity - totalItemsCoveredByPromotion;
+        this.firstUnavailableStockCount + this.secondUnavailableStockCount;
     }
   };
 }

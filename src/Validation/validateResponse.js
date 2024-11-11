@@ -2,29 +2,29 @@ import { ERROR_MESSAGES } from '../Constant/errorMessages.js';
 
 export class GiftConfirmationValidator {
   constructor() {
-    this.gitConfirmation = 0;
+    this.response = 0;
   }
 
   isValidEmptyInput() {
-    return this.gitConfirmation !== '';
+    return this.response !== '';
   }
 
   isValidConfirmationInput() {
-    return this.gitConfirmation === 'Y' || this.gitConfirmation === 'N';
+    return this.response === 'Y' || this.response === 'N';
   }
 
   getValidationRules() {
     return [
-      [!this.isValidEmptyInput(), ERROR_MESSAGES.GIFT_CONFIRMATION.EMPTY_INPUT],
+      [!this.isValidEmptyInput(), ERROR_MESSAGES.CONFIRMATION.EMPTY_INPUT],
       [
         !this.isValidConfirmationInput(),
-        ERROR_MESSAGES.GIFT_CONFIRMATION.CORRECT_INPUT,
+        ERROR_MESSAGES.CONFIRMATION.CORRECT_INPUT,
       ],
     ];
   }
 
-  validateGiftConfirmation(gitConfirmation) {
-    this.gitConfirmation = gitConfirmation;
+  validateResponse(response) {
+    this.response = response;
     const validationRules = this.getValidationRules();
 
     validationRules.forEach((arr) => {

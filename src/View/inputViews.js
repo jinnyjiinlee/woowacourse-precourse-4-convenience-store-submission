@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { InputMessage } from '../Constant/messages.js';
 import { PurchaseQuantitiesValidator } from '../Validation/purchaseQuantitiesValidator.js';
-import { GiftConfirmationValidator } from '../Validation/validateGiftConfirmation.js';
+import { GiftConfirmationValidator } from '../Validation/validateResponse.js';
 
 export class InputView {
   constructor() {
@@ -39,7 +39,7 @@ export class InputView {
         this.gitConfirmation = await Console.readLineAsync(
           this.inputMessage.INPUT_MESSAGE.IS_VALID_PROMOTION_ADD(productName),
         );
-        this.validateGiftConfirmation(this.gitConfirmation);
+        this.validateResponse(this.gitConfirmation);
         return this.gitConfirmation;
       } catch (e) {
         Console.print(e.message);
@@ -56,7 +56,7 @@ export class InputView {
             AdjustmentQuantities,
           ),
         );
-        // TODO: 유효성 검사 파일 추후 삽입
+        this.validateResponse(this.isFixedPricePurchaseInput);
         return this.isFixedPricePurchaseInput;
       } catch (e) {
         Console.print(e.message);
@@ -70,7 +70,8 @@ export class InputView {
         this.isMembershipApplicationInput = await Console.readLineAsync(
           this.inputMessage.INPUT_MESSAGE.IS_MEMBERSHIP_APPLICATION,
         );
-        // TODO: 유효성 검사 파일 추후 삽입
+        this.validateResponse(this.isMembershipApplicationInput);
+
         return this.isMembershipApplicationInput;
       } catch (e) {
         Console.print(e.message);
@@ -84,7 +85,8 @@ export class InputView {
         this.isAdditionalPurchaseInput = await Console.readLineAsync(
           this.inputMessage.INPUT_MESSAGE.IS_ADDITIONAL_PURCHASE,
         );
-        // TODO: 유효성 검사 파일 추후 삽입
+        this.validateResponse(this.isAdditionalPurchaseInput);
+
         return this.isAdditionalPurchaseInput;
       } catch (e) {
         Console.print(e.message);
@@ -92,9 +94,9 @@ export class InputView {
     }
   }
 
-  validateGiftConfirmation() {
-    this.giftConfirmationValidator.validateGiftConfirmation(
-      this.gitConfirmation,
+  validateResponse(response) {
+    this.giftConfirmationValidator.validateResponse(
+      response,
     );
   }
 }

@@ -64,20 +64,19 @@ class MainController {
   }
 
   checkPromotionActive() {
-
     if (
       this.targetProduct.promotionStock > 0 &&
       new PromotionActiveChecking().isPromotionActive(this.productName) === true
     ) {
       this.isEligibleForPromotion = true;
     }
+
   }
 
   // 프로모션 상품이 아닐떄,
   // 프로모션에 === 재고 없을 때 또는 프로모션 === null
   processNonPromotionProduct() {
     if (!this.isEligibleForPromotion) {
-
       this.currentRegularStock = this.targetProduct.regularStock;
       this.currentRegularStock -= this.productQuantity;
       this.targetProduct.totalReceivedQuantities += this.productQuantity;
@@ -93,12 +92,12 @@ class MainController {
 
   async processPromotionProduct() {
     if (this.isEligibleForPromotion) {
+
       await this.applyEligiblePromotions();
     }
   }
 
   async applyEligiblePromotions() {
-  
     this.handlePromotionProcess();
     await this.handleGiftConfirmation();
     await this.adjustProductQuantityForPromotion();
@@ -109,8 +108,6 @@ class MainController {
   }
 
   handlePromotionProcess() {
-
-
     this.promotionInfo =
       new CheckGiftOrDiscountStatus().checkGiftOrDiscountStatus(
         this.productName,
@@ -119,7 +116,6 @@ class MainController {
 
     this.promotionStatus = this.promotionInfo[0];
     this.adjustmentQuantity = this.promotionInfo[1];
-
   }
 
   async handleGiftConfirmation() {
