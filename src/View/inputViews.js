@@ -6,9 +6,7 @@ import { GiftConfirmationValidator } from '../Validation/confirmationResponseVal
 export class InputView {
   constructor() {
     this.inputMessage = new InputMessage();
-
     this.giftConfirmationValidator = new GiftConfirmationValidator();
-
     this.productNamesAndQuantities = null;
     this.gitConfirmation = null;
     this.isFixedPricePurchaseInput = null;
@@ -16,16 +14,10 @@ export class InputView {
     this.isAdditionalPurchaseInput = null;
   }
 
-  async getProductNamesAndQuantitiesInput() {
+  async getProductDetailsInput() {
     while (true) {
       try {
-        this.productNamesAndQuantities = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.PRODUCT_NAMES_AND_Quantities,
-        );
-        new PurchaseQuantitiesValidator().validateProductDetails(
-          this.productNamesAndQuantities,
-        );
-
+        await this.handleProductDetailsInput();
         return this.productNamesAndQuantities;
       } catch (e) {
         Console.print(e.message);
@@ -33,13 +25,19 @@ export class InputView {
     }
   }
 
+  async handleProductDetailsInput() {
+    this.productNamesAndQuantities = await Console.readLineAsync(
+      this.inputMessage.INPUT_MESSAGE.PRODUCT_NAMES_AND_Quantities,
+    );
+    new PurchaseQuantitiesValidator().validateProductDetails(
+      this.productNamesAndQuantities,
+    );
+  }
+
   async getAddGiftConfirmationInput(productName) {
     while (true) {
       try {
-        this.gitConfirmation = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.IS_VALID_PROMOTION_ADD(productName),
-        );
-        this.validateResponse(this.gitConfirmation);
+        await this.handleGiftConfirmationInput(productName);
         return this.gitConfirmation;
       } catch (e) {
         Console.print(e.message);
@@ -47,16 +45,19 @@ export class InputView {
     }
   }
 
-  async getFixedPriceConfirmationInput(productName, AdjustmentQuantities) {
+  async handleGiftConfirmationInput(productName) {
+    this.gitConfirmation = await Console.readLineAsync(
+      this.inputMessage.INPUT_MESSAGE.IS_VALID_PROMOTION_ADD(productName),
+    );
+    this.validateResponse(this.gitConfirmation);
+  }
+
+  async getFixedPriceConfirmationInput(productName, AdjustmentQuantity) {
+    this.productName = productName;
+    this.AdjustmentQuantity = AdjustmentQuantity;
     while (true) {
       try {
-        this.isFixedPricePurchaseInput = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE(
-            productName,
-            AdjustmentQuantities,
-          ),
-        );
-        this.validateResponse(this.isFixedPricePurchaseInput);
+        await this.handleFixedPriceConfirmationInput();
         return this.isFixedPricePurchaseInput;
       } catch (e) {
         Console.print(e.message);
@@ -64,14 +65,20 @@ export class InputView {
     }
   }
 
+  async handleFixedPriceConfirmationInput() {
+    this.isFixedPricePurchaseInput = await Console.readLineAsync(
+      this.inputMessage.INPUT_MESSAGE.IS_FIXED_PRICE_PURCHASE(
+        this.productName,
+        this.AdjustmentQuantity,
+      ),
+    );
+    this.validateResponse(this.isFixedPricePurchaseInput);
+  }
+
   async getIsMembershipApplicationInput() {
     while (true) {
       try {
-        this.isMembershipApplicationInput = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.IS_MEMBERSHIP_APPLICATION,
-        );
-        this.validateResponse(this.isMembershipApplicationInput);
-
+        await this.handleMembershipInput();
         return this.isMembershipApplicationInput;
       } catch (e) {
         Console.print(e.message);
@@ -79,19 +86,29 @@ export class InputView {
     }
   }
 
+  async handleMembershipInput() {
+    this.isMembershipApplicationInput = await Console.readLineAsync(
+      this.inputMessage.INPUT_MESSAGE.IS_MEMBERSHIP_APPLICATION,
+    );
+    this.validateResponse(this.isMembershipApplicationInput);
+  }
+
   async getIsAdditionalPurchaseInput() {
     while (true) {
       try {
-        this.isAdditionalPurchaseInput = await Console.readLineAsync(
-          this.inputMessage.INPUT_MESSAGE.IS_ADDITIONAL_PURCHASE,
-        );
-        this.validateResponse(this.isAdditionalPurchaseInput);
-
+        await this.handleAdditionalPurchase();
         return this.isAdditionalPurchaseInput;
       } catch (e) {
         Console.print(e.message);
       }
     }
+  }
+
+  async handleAdditionalPurchase() {
+    this.isAdditionalPurchaseInput = await Console.readLineAsync(
+      this.inputMessage.INPUT_MESSAGE.IS_ADDITIONAL_PURCHASE,
+    );
+    this.validateResponse(this.isAdditionalPurchaseInput);
   }
 
   validateResponse(response) {

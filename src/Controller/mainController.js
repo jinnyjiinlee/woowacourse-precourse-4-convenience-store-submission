@@ -198,8 +198,7 @@ class MainController {
   }
 
   async getProductNamesAndQuantities() {
-    this.productDetailsInput =
-      await this.input.getProductNamesAndQuantitiesInput();
+    this.productDetailsInput = await this.input.getProductDetailsInput();
   }
 
   async getAddGiftConfirmationInput() {
