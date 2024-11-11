@@ -127,42 +127,51 @@ class MainController {
 
   //  1+1일때
   applyOnePlusOnePromotion() {
-    if (
-      this.productName === '오렌지주스' ||
-      this.productName === '감자칩' ||
-      this.productName === '초코바' ||
-      this.productName === '컵라면'
-    ) {
+    this.listOnePlusOne();
+    if (this.onePlusOneList) {
       this.targetProduct.receivedGiftQuantities = Math.floor(
         this.productQuantity / 2,
       );
     }
   }
 
-  // 2+1 일때, 콜라, 사이다, 탄산수
+  listOnePlusOne() {
+    this.onePlusOneList =
+      this.productName === '오렌지주스' ||
+      this.productName === '감자칩' ||
+      this.productName === '초코바' ||
+      this.productName === '컵라면';
+  }
+
+  // 2+1 일때
   applyTwoPlusOnePromotion() {
-    if (
-      this.productName === '콜라' ||
-      this.productName === '사이다' ||
-      this.productName === '탄산수'
-    ) {
+    this.listTowPlusOne();
+    if (this.towPlusOneList) {
       this.targetProduct.receivedGiftQuantities = Math.floor(
         this.targetProduct.totalReceivedQuantities / 3,
       );
     }
   }
 
+  listTowPlusOne() {
+    this.towPlusOneList =
+      this.productName === '콜라' ||
+      this.productName === '사이다' ||
+      this.productName === '탄산수';
+  }
+
+  // TODO: 10이내로 리펙토링 
   async adjustProductQuantityForPromotion() {
     if (this.giftConfirmationResponse === 'Y') {
       this.productQuantity += this.adjustmentQuantity;
     }
 
-    if (this.promotionStatus === '적용안됨' && this.adjustmentQuantity > 0) {
-      await this.getFixedPriceConfirmationInput();
-    }
-
     if (this.fixedPriceConfirmationResponse === 'N') {
       this.productQuantity -= this.adjustmentQuantity;
+    }
+
+    if (this.promotionStatus === '적용안됨' && this.adjustmentQuantity > 0) {
+      await this.getFixedPriceConfirmationInput();
     }
 
     this.targetProduct.totalReceivedQuantities = this.productQuantity;

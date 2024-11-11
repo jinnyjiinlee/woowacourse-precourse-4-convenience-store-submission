@@ -19,21 +19,21 @@ export class PromotionActiveChecking {
   isPromotionActive(productName) {
     this.productName = productName;
     this.findPromotionType();
+    this.findDates();
+    const start = new Date(this.startDate);
+    const end = new Date(this.endDate);
 
-    const currentDate = DateTimes.now();
+    return this.currentDate >= start && this.currentDate <= end;
+  }
 
-    const startDate = this.promotions.find(
+  findDates() {
+    this.currentDate = DateTimes.now();
+    this.startDate = this.promotions.find(
       (promotion) => promotion.type === this.promotionType,
     ).start_date;
-
-    const endDate = this.promotions.find(
+    this.endDate = this.promotions.find(
       (promotion) => promotion.type === this.promotionType,
     ).end_date;
-
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-
-    return currentDate >= start && currentDate <= end;
   }
 
   findPromotionType() {
