@@ -116,7 +116,7 @@ export class ReceiptPrinting {
     Console.print('\n' + '=============증      정===============');
     this.printGiftProductNameAndQuantities();
 
-    Console.print('\n' + '=====================================');
+    Console.print('\n' + '======================================');
     this.printTotalPurchaseQuantities();
 
     if (isMembershipApplicationInput === 'Y') {
@@ -127,10 +127,10 @@ export class ReceiptPrinting {
 
     // TODO: 간격 맞추기
     Console.print(
-      `행사할인                        -${this.totalGiftPurchasedProductPrice.toLocaleString()}`,
+      `행사할인                       -${this.totalGiftPurchasedProductPrice.toLocaleString()}`,
     );
     Console.print(
-      `맴버십할인                      -${this.membershipDiscountPrice.toLocaleString()}`,
+      `맴버십할인                     -${this.membershipDiscountPrice.toLocaleString()}`,
     );
     Console.print(
       `내실돈                          ${this.priceForPay.toLocaleString()}`,
