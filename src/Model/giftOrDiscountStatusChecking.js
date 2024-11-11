@@ -15,7 +15,7 @@ export class CheckGiftOrDiscountStatus {
     this.productQuantity = productQuantity;
 
     this.targetProduct = this.PRODUCTS.find(
-      (product) => product.productName === this.productName
+      (product) => product.productName === this.productName,
     );
 
     if (this.targetProduct.promotionStock > this.productQuantity) {
@@ -64,13 +64,18 @@ export class CheckGiftOrDiscountStatus {
       this.targetProduct.productName === '초코바' ||
       this.targetProduct.productName === '컵라면'
     ) {
-      this.firstUnavailableStockCount =
-        this.productQuantity - this.targetProduct.promotionStock;
-      this.secondUnavailableStockCount =
-        (this.productQuantity - this.firstUnavailableStockCount) % 2;
+      const promotionsApplied = Math.min(
+        this.targetProduct.promotionStock,
+        this.productQuantity,
+      );
+      const freeItemsGiven = promotionsApplied;
+      this.adjustmentQuantities = this.productQuantity - promotionsApplied;
 
-      this.adjustmentQuantities =
-        this.firstUnavailableStockCount + this.secondUnavailableStockCount;
+      // 만약 남은 상품이 프로모션으로 처리되지 않은 경우
+      if (this.adjustmentQuantities > 0) {
+        // 프로모션 적용되지 않은 수량에 대해 처리
+        // 이때 adjustmentQuantities는 프로모션 적용되지 않는 유료 구매 수량
+      }
     }
 
     // 2 + 1
@@ -79,14 +84,15 @@ export class CheckGiftOrDiscountStatus {
       this.targetProduct.productName === '사이다' ||
       this.targetProduct.productName === '탄산수'
     ) {
-      this.firstUnavailableStockCount =
-        this.productQuantity - this.targetProduct.promotionStock;
-
-      this.secondUnavailableStockCount =
-        (this.productQuantity - this.firstUnavailableStockCount) % 3;
-
+      const maxPromotionsPossible = Math.floor(this.productQuantity / 3);
+      const promotionsApplied = Math.min(
+        maxPromotionsPossible,
+        this.targetProduct.promotionStock,
+      );
+      const freeItemsGiven = promotionsApplied;
+      const totalItemsCoveredByPromotion = promotionsApplied * 3;
       this.adjustmentQuantities =
-        this.firstUnavailableStockCount + this.secondUnavailableStockCount;
+        this.productQuantity - totalItemsCoveredByPromotion;
     }
   };
 }

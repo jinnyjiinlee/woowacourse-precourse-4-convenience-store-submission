@@ -64,6 +64,7 @@ class MainController {
   }
 
   checkPromotionActive() {
+
     if (
       this.targetProduct.promotionStock > 0 &&
       new PromotionActiveChecking().isPromotionActive(this.productName) === true
@@ -76,6 +77,7 @@ class MainController {
   // 프로모션에 === 재고 없을 때 또는 프로모션 === null
   processNonPromotionProduct() {
     if (!this.isEligibleForPromotion) {
+
       this.currentRegularStock = this.targetProduct.regularStock;
       this.currentRegularStock -= this.productQuantity;
       this.targetProduct.totalReceivedQuantities += this.productQuantity;
@@ -96,7 +98,7 @@ class MainController {
   }
 
   async applyEligiblePromotions() {
-    //이것도 들어와 미치게싼
+  
     this.handlePromotionProcess();
     await this.handleGiftConfirmation();
     await this.adjustProductQuantityForPromotion();
@@ -107,7 +109,7 @@ class MainController {
   }
 
   handlePromotionProcess() {
-    // 들어오긴 하네 !
+
 
     this.promotionInfo =
       new CheckGiftOrDiscountStatus().checkGiftOrDiscountStatus(
@@ -117,6 +119,7 @@ class MainController {
 
     this.promotionStatus = this.promotionInfo[0];
     this.adjustmentQuantity = this.promotionInfo[1];
+
   }
 
   async handleGiftConfirmation() {
