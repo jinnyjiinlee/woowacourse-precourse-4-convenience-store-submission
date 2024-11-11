@@ -54,7 +54,6 @@ export class OutputView {
       this.product.regularStock !== null &&
       this.product.regularStock !== '재고 없음'
     ) {
-      //이걸 재고 없음 일때는 재고없음으로 나오게 해야 한다.
       this.regularStockText = `${this.product.regularStock}개`;
     }
     if (this.product.regularStock === 0) {

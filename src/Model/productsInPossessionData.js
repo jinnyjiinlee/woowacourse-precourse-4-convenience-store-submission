@@ -18,7 +18,6 @@ export class ParedProductsData {
     return this.rawProductsList;
   };
 
-  // 절대 경로를 상대평가로 바꾸기 
   readProductsRawData = () => {
     this.productsRawData = fs.readFileSync(path.resolve('public/products.md'),
       'utf8'

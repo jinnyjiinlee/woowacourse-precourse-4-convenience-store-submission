@@ -66,8 +66,6 @@ export class ReceiptPrinting {
       this.totalPurchasedProductQuantities +=
         this.purchasedProductQuantities[i];
 
-      // console.log('purchasedProductName: ', this.purchasedProductName);
-
       // TODO: 'ㅡ'을 빈칸으로 만들어도 정렬되게 하기
       Console.print(
         `${this.purchasedProductName[i].padEnd(10, 'ㅡ')} ${String(
@@ -87,7 +85,6 @@ export class ReceiptPrinting {
     }
   }
 
-  // 프로모션 상품, 개수
   printGiftProductNameAndQuantities() {
     for (let i = 0; i < this.giftPurchasedProductName.length; i += 1) {
       Console.print(
@@ -98,7 +95,6 @@ export class ReceiptPrinting {
     }
   }
 
-  // 총 수량, 총 금액
   printTotalPurchaseQuantities() {
     Console.print(
       `총구매액 ${String(this.totalPurchasedProductQuantities).padStart(
@@ -123,30 +119,25 @@ export class ReceiptPrinting {
     Console.print('\n' + '=====================================');
     this.printTotalPurchaseQuantities();
 
-    // 맴버십 함수 실행
     if (isMembershipApplicationInput === 'Y') {
       this.calculateMembershipDiscount();
     }
 
-    // 내실돈 함수 실행
-
     this.calculatePriceForPay();
 
-    // TODO: 나중에 간격 맞추기
+    // TODO: 간격 맞추기
     Console.print(
       `행사할인                        -${this.totalGiftPurchasedProductPrice.toLocaleString()}`,
     );
     Console.print(
       `맴버십할인                      -${this.membershipDiscountPrice.toLocaleString()}`,
     );
-
     Console.print(
       `내실돈                          ${this.priceForPay.toLocaleString()}`,
     );
   }
 
   calculateMembershipDiscount() {
-    // 총 금액 - 프로모션 적용 금액
     if (
       (this.totalPurchasedProductPrice - this.totalGiftPurchasedProductPrice) *
         0.3 <

@@ -25,7 +25,7 @@ class MainController {
   }
 
   async startProgram() {
-    this.initializeTransaction(); // 거래 관련 필드 초기화
+    this.initializeTransaction();
 
     this.output.printProductList();
 
@@ -125,7 +125,6 @@ class MainController {
     }
   }
 
-  //  1+1일때
   applyOnePlusOnePromotion() {
     this.listOnePlusOne();
     if (this.onePlusOneList) {
@@ -143,7 +142,6 @@ class MainController {
       this.productName === '컵라면';
   }
 
-  // 2+1 일때
   applyTwoPlusOnePromotion() {
     this.listTowPlusOne();
     if (this.towPlusOneList) {
@@ -160,7 +158,7 @@ class MainController {
       this.productName === '탄산수';
   }
 
-  // TODO: 10이내로 리펙토링 
+  // TODO: 10 줄 이내로 리펙토링
   async adjustProductQuantityForPromotion() {
     if (this.giftConfirmationResponse === 'Y') {
       this.productQuantity += this.adjustmentQuantity;
@@ -187,7 +185,6 @@ class MainController {
     }
   }
 
-  // 프로모션 재고가 부족한 경우
   handleInsufficientPromotionStock() {
     if (this.targetProduct.promotionStock === '재고 없음') {
       this.remainingQuantity =

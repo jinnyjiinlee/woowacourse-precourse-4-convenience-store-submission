@@ -82,7 +82,7 @@ const PRODUCTS = [
     promotionType: rawProductList[10][3],
     totalReceivedQuantities: 0,
     receivedGiftQuantities: 0,
-  }, //초코바 1+1
+  }, // 초코바 1+1
   {
     productName: rawProductList[12][0],
     price: Number(rawProductList[12][1]),

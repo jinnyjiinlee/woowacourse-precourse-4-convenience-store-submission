@@ -14,18 +14,9 @@ export class CheckGiftOrDiscountStatus {
     this.productName = productName;
     this.productQuantity = productQuantity;
 
-    // console.log('this.productName', this.productName);
-    // console.log('this.productQuantity', this.productQuantity);
-
     this.targetProduct = this.PRODUCTS.find(
       (product) => product.productName === this.productName,
     );
-
-    // console.log(
-    //   'this.targetProduct.promotionStock',
-    //   this.targetProduct.promotionStock,
-    // );
-    // console.log('this.productQuantity', this.productQuantity);
 
     if (this.targetProduct.promotionStock > this.productQuantity) {
       this.applyExtraPromotion();
@@ -40,9 +31,7 @@ export class CheckGiftOrDiscountStatus {
     }
   };
 
-  // availablePromotionStock > productQuantity
   applyExtraPromotion = () => {
-    // 1 + 1 - 구매 개수가 홀수 일 때, 1개 더 증정
     if (
       (this.targetProduct.productName === '오렌지주스' ||
         this.targetProduct.productName === '감자칩' ||
@@ -53,7 +42,6 @@ export class CheckGiftOrDiscountStatus {
       this.adjustmentQuantities = 1;
     }
 
-    // 2 + 1 - 구매개수가 3의 배수 -1일 때,
     if (
       (this.targetProduct.productName === '콜라' ||
         this.targetProduct.productName === '사이다' ||
@@ -64,7 +52,6 @@ export class CheckGiftOrDiscountStatus {
     }
   };
 
-  // availablePromotionStock < productQuantity
   applyNoPromotionDiscount = () => {
     // 1 + 1
     if (
@@ -82,7 +69,6 @@ export class CheckGiftOrDiscountStatus {
         this.firstUnavailableStockCount + this.secondUnavailableStockCount;
     }
 
-    // 2 + 1
     if (
       this.targetProduct.productName === '콜라' ||
       this.targetProduct.productName === '사이다' ||
